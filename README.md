@@ -1,6 +1,22 @@
-# Hell Fire Browser
+<p align="center">
+  <img src="assets/logo.png" alt="Hell Fire Browser" width="128" height="128" style="border-radius: 20px;" />
+</p>
 
-Hell Fire is a desktop web browser built with Electron and Chromium. It includes a custom frameless dark chrome, WebGL background on the new tab page, hardware-backed credential storage, network tracker blocking, and dual-pane split view.
+<h1 align="center">Hell Fire Browser</h1>
+
+<p align="center">
+  <b>Fast, isolated, and quiet desktop web browser built with Electron and Chromium.</b><br>
+  Features hardware-backed credential encryption, network-level tracking defense, procedural WebGL graphics, and dual-pane split view.
+</p>
+
+<p align="center">
+  <a href="https://drive.google.com/uc?export=download&id=1oVh8r2_AThhZ8SEELWG2xlTDyUGfaI1a"><b>Download Setup (.exe)</b></a> •
+  <a href="https://drive.google.com/uc?export=download&id=12FW-lLgSu8V24YXplMVWTT9V8q761luG"><b>Download Portable (.exe)</b></a> •
+  <a href="#features">Features</a> •
+  <a href="#running-from-source">Build from Source</a>
+</p>
+
+---
 
 ## Features
 
@@ -19,8 +35,8 @@ Hell Fire is a desktop web browser built with Electron and Chromium. It includes
 
 ### Windows x64
 
-- [Hell-Fire-Setup-1.0.0.exe](https://github.com/hellfire-browser/hellfire/releases/latest/download/Hell-Fire-Setup-1.0.0.exe) (One-click installer)
-- [Hell-Fire-1.0.0-Portable.exe](https://github.com/hellfire-browser/hellfire/releases/latest/download/Hell-Fire-1.0.0-Portable.exe) (Portable executable, no installation needed)
+- **Setup Installer:** [Hell-Fire-Setup-1.0.0.exe](https://drive.google.com/uc?export=download&id=1oVh8r2_AThhZ8SEELWG2xlTDyUGfaI1a) (123 MB)
+- **Portable Edition:** [Hell-Fire-1.0.0-Portable.exe](https://drive.google.com/uc?export=download&id=12FW-lLgSu8V24YXplMVWTT9V8q761luG) (112 MB)
 
 The installer puts the browser in `%LocalAppData%\Programs\Hell Fire`, adds Desktop and Start Menu shortcuts, registers the app in Windows Settings, and starts it automatically. It requires no administrator rights or Node.js.
 
@@ -115,7 +131,7 @@ hellfire/
 ## Tests
 
 ```bash
-# Run all 10 test suites (210 assertions)
+# Run all 10 test suites (213 assertions)
 npm test
 
 # Run the launch smoke test
