@@ -264,7 +264,6 @@
     if (omniboxDropdown) {
       omniboxDropdown.hidden = true;
       omniboxDropdown.innerHTML = '';
-      window.privateFox?.setDropdownOffset(0);
     }
   }
 
@@ -354,10 +353,6 @@
 
     omniboxDropdown.innerHTML = html;
     omniboxDropdown.hidden = false;
-    requestAnimationFrame(() => {
-      const h = omniboxDropdown.offsetHeight || 0;
-      window.privateFox?.setDropdownOffset(h > 0 ? h + 6 : 0);
-    });
 
     // Attach click listeners to suggestions
     omniboxDropdown.querySelectorAll('.dropdown-item').forEach(item => {
@@ -907,13 +902,8 @@
       });
       // Close app menu if open
       if (typeof setAppMenuOpen === 'function') setAppMenuOpen(false);
-      requestAnimationFrame(() => {
-        const h = shieldPopover.offsetHeight || 0;
-        window.privateFox?.setDropdownOffset(h > 0 ? h + 6 : 0);
-      });
     } else {
       if (shieldReloadBox) shieldReloadBox.style.display = 'none';
-      window.privateFox?.setDropdownOffset(0);
     }
   }
 
@@ -951,25 +941,18 @@
       if (shieldReloadBox) shieldReloadBox.style.display = 'none';
       if (shieldPopover) {
         shieldPopover.hidden = true;
-        window.privateFox?.setDropdownOffset(0);
       }
     });
   }
 
   document.addEventListener('click', (e) => {
-    let offsetReset = false;
     if (shieldPopover && !shieldPopover.hidden && !shieldPopover.contains(e.target) && !e.target.closest('#btnLock') && !e.target.closest('#btnShield') && !e.target.closest('#btnToggleShield')) {
       shieldPopover.hidden = true;
       if (btnToggleShield) btnToggleShield.setAttribute('aria-expanded', 'false');
       if (shieldReloadBox) shieldReloadBox.style.display = 'none';
-      offsetReset = true;
     }
     if (omniboxDropdown && !omniboxDropdown.hidden && !omniboxDropdown.contains(e.target) && e.target !== omniboxInput) {
       hideOmniboxDropdown();
-      offsetReset = true;
-    }
-    if (offsetReset) {
-      window.privateFox?.setDropdownOffset(0);
     }
   });
 
@@ -1508,16 +1491,15 @@
         if (btnToggleShield) btnToggleShield.setAttribute('aria-expanded', 'false');
       }
       hideSubmenus();
-      window.privateFox?.getZoom().then(pct => {
-        if (zoomPercentText) zoomPercentText.textContent = pct + '%';
-      });
-      requestAnimationFrame(() => {
-        const h = appMenu.offsetHeight || 420;
-        window.privateFox?.setDropdownOffset(h > 0 ? h + 8 : 0);
-      });
+      if (btnAppMenu) {
+        const rect = btnAppMenu.getBoundingClientRect();
+        window.privateFox?.openAppMenu?.({
+          x: Math.round(rect.right),
+          y: Math.round(rect.bottom + 4)
+        });
+      }
     } else {
       hideSubmenus();
-      window.privateFox?.setDropdownOffset(0);
     }
   }
 
@@ -2345,16 +2327,11 @@
 
     if (popupSavePassword) {
       popupSavePassword.hidden = false;
-      requestAnimationFrame(() => {
-        const h = popupSavePassword.offsetHeight || 220;
-        window.privateFox?.setDropdownOffset(h + 8);
-      });
     }
   }
 
   function closeSavePasswordPopup() {
     if (popupSavePassword) popupSavePassword.hidden = true;
-    window.privateFox?.setDropdownOffset(0);
   }
 
   function showSaveAddressPopup(data) {
@@ -2399,16 +2376,11 @@
 
     if (popupSaveAddress) {
       popupSaveAddress.hidden = false;
-      requestAnimationFrame(() => {
-        const h = popupSaveAddress.offsetHeight || 220;
-        window.privateFox?.setDropdownOffset(h + 8);
-      });
     }
   }
 
   function closeSaveAddressPopup() {
     if (popupSaveAddress) popupSaveAddress.hidden = true;
-    window.privateFox?.setDropdownOffset(0);
   }
 
   // Omnibox Button Toggles
@@ -3578,6 +3550,52 @@
       e.preventDefault();
       window.privateFox?.goForward();
     }
+  });
+
+  // ─────────────────────────────────────────────────────────────
+  // APPLICATION MENU ACTION DISPATCHERS
+  // ─────────────────────────────────────────────────────────────
+  window.privateFox?.on?.('menu:open-history', () => {
+    setPanelOpen(true, 'panelHistory');
+  });
+  window.privateFox?.on?.('menu:open-bookmarks', () => {
+    setPanelOpen(true, 'panelBookmarks');
+  });
+  window.privateFox?.on?.('menu:open-downloads', () => {
+    setPanelOpen(true, 'panelDownloads');
+  });
+  window.privateFox?.on?.('menu:open-passwords', () => {
+    openModal('modalPasswords');
+  });
+  window.privateFox?.on?.('menu:open-extensions', () => {
+    openModal('modalExtensions');
+  });
+  window.privateFox?.on?.('menu:open-settings', () => {
+    setPanelOpen(true, 'panelSettings');
+  });
+  window.privateFox?.on?.('menu:find-in-page', () => {
+    openFindBar();
+  });
+  window.privateFox?.on?.('menu:bookmark-tab', () => {
+    if (currentTabUrl) {
+      window.privateFox?.toggleBookmark?.({
+        url: currentTabUrl,
+        title: currentTabTitle || 'Bookmark'
+      });
+    }
+  });
+  window.privateFox?.on?.('menu:clear-data', () => {
+    openModal('modalClearData');
+  });
+  window.privateFox?.on?.('menu:about', () => {
+    openModal('modalAbout');
+  });
+  window.privateFox?.on?.('menu:toggle-shield', () => {
+    const isCurrentlyChecked = shieldMasterToggle ? shieldMasterToggle.checked : true;
+    handleShieldToggle(!isCurrentlyChecked);
+  });
+  window.privateFox?.on?.('menu:closed', () => {
+    setAppMenuOpen(false);
   });
 
   // ─────────────────────────────────────────────────────────────

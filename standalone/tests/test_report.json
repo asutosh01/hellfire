@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-11-24T13:55:41.465Z",
-  "totalTests": 213,
-  "totalPassed": 213,
+  "timestamp": "2026-11-24T15:19:30.693Z",
+  "totalTests": 225,
+  "totalPassed": 225,
   "totalFailed": 0,
-  "totalDurationMs": 11937,
+  "totalDurationMs": 21619,
   "successRate": "100.0%",
   "suites": [
     {
@@ -67,7 +67,7 @@
       ],
       "passed": 11,
       "failed": 0,
-      "durationMs": 49
+      "durationMs": 39
     },
     {
       "name": "Suite 2: Omnibox & Search Routing",
@@ -150,7 +150,7 @@
       ],
       "passed": 15,
       "failed": 0,
-      "durationMs": 869
+      "durationMs": 6626
     },
     {
       "name": "Suite 3: WebGL Hellfire Engine & Idle Lifecycle",
@@ -223,7 +223,7 @@
       ],
       "passed": 13,
       "failed": 0,
-      "durationMs": 2707
+      "durationMs": 3844
     },
     {
       "name": "Suite 4: Password Manager & Autofill Vault",
@@ -291,7 +291,7 @@
       ],
       "passed": 12,
       "failed": 0,
-      "durationMs": 842
+      "durationMs": 801
     },
     {
       "name": "Suite 5: Security & Incognito Isolation",
@@ -349,7 +349,7 @@
       ],
       "passed": 10,
       "failed": 0,
-      "durationMs": 1726
+      "durationMs": 1727
     },
     {
       "name": "Suite 6: Visual & Aesthetic Design Directives",
@@ -437,7 +437,7 @@
       ],
       "passed": 16,
       "failed": 0,
-      "durationMs": 3
+      "durationMs": 2
     },
     {
       "name": "Suite 7: Enterprise QA, IPC Fuzzing, SRE Memory & Chaos",
@@ -630,7 +630,7 @@
       ],
       "passed": 37,
       "failed": 0,
-      "durationMs": 1139
+      "durationMs": 1070
     },
     {
       "name": "Suite 8: Compliance, Network (DoH), Download Sanitization & A11y",
@@ -738,7 +738,7 @@
       ],
       "passed": 20,
       "failed": 0,
-      "durationMs": 10
+      "durationMs": 5
     },
     {
       "name": "Suite 9: Zen & Helium Innovations (Split-View, Glance, CNAME Uncloaking)",
@@ -1046,7 +1046,7 @@
       ],
       "passed": 60,
       "failed": 0,
-      "durationMs": 8
+      "durationMs": 5
     },
     {
       "name": "Suite 10: Real Entrypoint & E2E App Launch Smoke Test",
@@ -1069,22 +1069,22 @@
         {
           "title": "Real app launch produced ZERO UnhandledPromiseRejection errors",
           "status": "PASS",
-          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[10128:1124/192537.146:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child_"
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[110340:1124/204925.421:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
         },
         {
           "title": "Real app launch produced ZERO TypeError exceptions (e.g. setWebRTCIPHandlingPolicy)",
           "status": "PASS",
-          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[10128:1124/192537.146:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child_"
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[110340:1124/204925.421:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
         },
         {
           "title": "Real app launch produced ZERO ReferenceError exceptions",
           "status": "PASS",
-          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[10128:1124/192537.146:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child_"
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[110340:1124/204925.421:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
         },
         {
           "title": "Real app launch produced ZERO SyntaxError exceptions",
           "status": "PASS",
-          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[10128:1124/192537.146:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child_"
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[110340:1124/204925.421:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
         },
         {
           "title": "Real app process remained alive with active window (did not crash or exit on boot)",
@@ -1149,7 +1149,75 @@
       ],
       "passed": 19,
       "failed": 0,
-      "durationMs": 4584
+      "durationMs": 5078
+    },
+    {
+      "name": "Suite 11: 3-Bar Menu & Viewport Integrity",
+      "tests": [
+        {
+          "title": "main.js does not inflate chromeH with dropdown offset",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js enforces fixed chromeH = baseH",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js registers menu:open-app-menu IPC handler",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "preload.js exposes openAppMenu API",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.js calls openAppMenu on menu open",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.js does not call setDropdownOffset in setAppMenuOpen",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Tab view initial Y is at chrome baseline (110)",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Tab view initial height is full available viewport (690)",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Tab view Y remained strictly unchanged (110) after opening 3-bar menu",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Tab view height remained strictly unchanged (690) after opening 3-bar menu",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Home page viewport was not crushed or pushed down",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Tab view bounds remained rock-solid after closing menu",
+          "status": "PASS",
+          "extra": ""
+        }
+      ],
+      "passed": 12,
+      "failed": 0,
+      "durationMs": 2422
     }
   ]
 }

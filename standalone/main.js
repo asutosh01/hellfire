@@ -436,7 +436,7 @@ function updateActiveViewBounds(winState) {
 
   const [w, h] = ws.win.getContentSize();
   const baseH = ws.isBookmarksBarVisible ? 138 : 110;
-  const chromeH = baseH + (ws.extraDropdownHeight || 0);
+  const chromeH = baseH; // Never displace tab.view; dropdowns/menus float cleanly over active view
   const panelW = ws.isPanelOpen ? 380 : 0;
   const availW = Math.max(200, w - panelW);
   const availH = Math.max(0, h - chromeH);
@@ -1558,11 +1558,249 @@ ipcMain.handle('panel:set-state', (event, isOpen) => {
 ipcMain.handle('chrome:set-dropdown-offset', (event, offset) => {
   const ws = getWindowState(event);
   if (ws) {
-    ws.extraDropdownHeight = Math.max(0, parseInt(offset, 10) || 0);
-    updateActiveViewBounds(ws);
-    return { success: true, extraDropdownHeight: ws.extraDropdownHeight };
+    ws.extraDropdownHeight = 0; // View offset is strictly 0 to preserve web background canvas
+    return { success: true, extraDropdownHeight: 0 };
   }
   return { success: false };
+});
+
+function showAppMenu(ws, coords) {
+  if (!ws || !ws.win || ws.win.isDestroyed()) return;
+  const activeTab = ws.tabs.find(t => t.id === ws.activeTabId);
+  const zoomFactor = (activeTab && activeTab.view && activeTab.view.webContents && !activeTab.view.webContents.isDestroyed())
+    ? activeTab.view.webContents.getZoomFactor()
+    : 1.0;
+  const zoomPct = Math.round(zoomFactor * 100);
+
+  const template = [
+    {
+      label: 'New Tab',
+      accelerator: 'CmdOrCtrl+T',
+      click: () => createTab(ws)
+    },
+    {
+      label: 'New Window',
+      accelerator: 'CmdOrCtrl+N',
+      click: () => createBrowserWindow()
+    },
+    {
+      label: 'New Incognito Window',
+      accelerator: 'CmdOrCtrl+Shift+N',
+      click: () => createBrowserWindow(true)
+    },
+    { type: 'separator' },
+    {
+      label: 'History',
+      submenu: [
+        {
+          label: 'Show All History',
+          accelerator: 'CmdOrCtrl+H',
+          click: () => {
+            if (ws.win && !ws.win.isDestroyed()) ws.win.webContents.send('menu:open-history');
+          }
+        },
+        {
+          label: 'Clear Browsing Data...',
+          accelerator: 'CmdOrCtrl+Shift+Delete',
+          click: () => {
+            if (ws.win && !ws.win.isDestroyed()) ws.win.webContents.send('menu:clear-data');
+          }
+        }
+      ]
+    },
+    {
+      label: 'Bookmarks',
+      submenu: [
+        {
+          label: 'Bookmark Current Tab',
+          accelerator: 'CmdOrCtrl+D',
+          click: () => {
+            if (ws.win && !ws.win.isDestroyed()) ws.win.webContents.send('menu:bookmark-tab');
+          }
+        },
+        {
+          label: 'Show Bookmarks Bar',
+          accelerator: 'CmdOrCtrl+Shift+B',
+          type: 'checkbox',
+          checked: ws.isBookmarksBarVisible,
+          click: (item) => {
+            ws.isBookmarksBarVisible = item.checked;
+            settings.showBookmarksBar = item.checked;
+            saveJSON(SETTINGS_FILE, settings);
+            updateActiveViewBounds(ws);
+            if (ws.win && !ws.win.isDestroyed()) {
+              ws.win.webContents.send('settings:changed', settings);
+            }
+          }
+        },
+        {
+          label: 'Manage Bookmarks',
+          click: () => {
+            if (ws.win && !ws.win.isDestroyed()) ws.win.webContents.send('menu:open-bookmarks');
+          }
+        }
+      ]
+    },
+    {
+      label: 'Downloads',
+      accelerator: 'CmdOrCtrl+J',
+      click: () => {
+        if (ws.win && !ws.win.isDestroyed()) ws.win.webContents.send('menu:open-downloads');
+      }
+    },
+    {
+      label: 'Passwords & Vault',
+      click: () => {
+        if (ws.win && !ws.win.isDestroyed()) ws.win.webContents.send('menu:open-passwords');
+      }
+    },
+    {
+      label: 'Extensions and Themes',
+      accelerator: 'CmdOrCtrl+Shift+F',
+      click: () => {
+        if (ws.win && !ws.win.isDestroyed()) ws.win.webContents.send('menu:open-extensions');
+      }
+    },
+    { type: 'separator' },
+    {
+      label: 'Print...',
+      accelerator: 'CmdOrCtrl+P',
+      click: () => {
+        if (activeTab && activeTab.view && activeTab.view.webContents && !activeTab.view.webContents.isDestroyed()) {
+          activeTab.view.webContents.print();
+        }
+      }
+    },
+    {
+      label: 'Save Page As...',
+      accelerator: 'CmdOrCtrl+S',
+      click: () => {
+        if (activeTab && activeTab.view && activeTab.view.webContents && !activeTab.view.webContents.isDestroyed()) {
+          activeTab.view.webContents.savePage('page.html', 'HTMLComplete').catch(() => {});
+        }
+      }
+    },
+    {
+      label: 'Find in Page...',
+      accelerator: 'CmdOrCtrl+F',
+      click: () => {
+        if (ws.win && !ws.win.isDestroyed()) ws.win.webContents.send('menu:find-in-page');
+      }
+    },
+    {
+      label: 'Split View (Dual Pane)',
+      accelerator: 'CmdOrCtrl+Alt+S',
+      type: 'checkbox',
+      checked: Boolean(ws.splitTabId),
+      click: () => toggleSplitView(ws)
+    },
+    { type: 'separator' },
+    {
+      label: `Zoom (${zoomPct}%)`,
+      submenu: [
+        {
+          label: 'Zoom In (+)',
+          accelerator: 'CmdOrCtrl+Plus',
+          click: () => {
+            if (activeTab && activeTab.view && activeTab.view.webContents && !activeTab.view.webContents.isDestroyed()) {
+              const current = activeTab.view.webContents.getZoomFactor();
+              activeTab.view.webContents.setZoomFactor(Math.min(3.0, current + 0.1));
+            }
+          }
+        },
+        {
+          label: 'Zoom Out (-)',
+          accelerator: 'CmdOrCtrl+-',
+          click: () => {
+            if (activeTab && activeTab.view && activeTab.view.webContents && !activeTab.view.webContents.isDestroyed()) {
+              const current = activeTab.view.webContents.getZoomFactor();
+              activeTab.view.webContents.setZoomFactor(Math.max(0.3, current - 0.1));
+            }
+          }
+        },
+        {
+          label: 'Reset Zoom (100%)',
+          accelerator: 'CmdOrCtrl+0',
+          click: () => {
+            if (activeTab && activeTab.view && activeTab.view.webContents && !activeTab.view.webContents.isDestroyed()) {
+              activeTab.view.webContents.setZoomFactor(1.0);
+            }
+          }
+        },
+        {
+          label: 'Toggle Full Screen',
+          accelerator: 'F11',
+          click: () => {
+            if (ws.win && !ws.win.isDestroyed()) {
+              ws.win.setFullScreen(!ws.win.isFullScreen());
+            }
+          }
+        }
+      ]
+    },
+    {
+      label: 'Privacy Shield (Block Trackers)',
+      type: 'checkbox',
+      checked: true,
+      click: () => {
+        if (ws.win && !ws.win.isDestroyed()) ws.win.webContents.send('menu:toggle-shield');
+      }
+    },
+    { type: 'separator' },
+    {
+      label: 'Settings',
+      click: () => {
+        if (ws.win && !ws.win.isDestroyed()) ws.win.webContents.send('menu:open-settings');
+      }
+    },
+    {
+      label: 'Help and About',
+      submenu: [
+        {
+          label: 'About Hell Fire',
+          click: () => {
+            if (ws.win && !ws.win.isDestroyed()) ws.win.webContents.send('menu:about');
+          }
+        },
+        {
+          label: 'Official GitHub Repository',
+          click: () => shell.openExternal('https://github.com/asutosh01/hellfire')
+        },
+        {
+          label: 'Privacy Architecture',
+          click: () => createTab(ws, 'about:newtab')
+        }
+      ]
+    },
+    { type: 'separator' },
+    {
+      label: 'Exit Hell Fire',
+      accelerator: 'Alt+F4',
+      click: () => app.quit()
+    }
+  ];
+
+  const menu = Menu.buildFromTemplate(template);
+  const popupOptions = { window: ws.win };
+  if (coords && typeof coords.x === 'number' && typeof coords.y === 'number') {
+    popupOptions.x = Math.round(coords.x);
+    popupOptions.y = Math.round(coords.y);
+  }
+  menu.popup({
+    ...popupOptions,
+    callback: () => {
+      if (ws.win && !ws.win.isDestroyed()) {
+        ws.win.webContents.send('menu:closed');
+      }
+    }
+  });
+}
+
+ipcMain.handle('menu:open-app-menu', (event, coords) => {
+  const ws = getWindowState(event);
+  if (!ws) return { success: false };
+  showAppMenu(ws, coords);
+  return { success: true };
 });
 
 ipcMain.handle('bookmarks-bar:set-state', (event, visible) => {

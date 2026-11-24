@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/asutosh01/hellfire"><img src="https://img.shields.io/badge/version-1.0.0-2563eb.svg?style=flat-square" alt="Version 1.0.0" /></a>
-  <a href="#tests"><img src="https://img.shields.io/badge/tests-213%20passed-22c55e.svg?style=flat-square" alt="Tests 213 Passed" /></a>
+  <a href="#tests"><img src="https://img.shields.io/badge/tests-225%20passed-22c55e.svg?style=flat-square" alt="Tests 225 Passed" /></a>
   <img src="https://img.shields.io/badge/platform-Windows%20x64-161b22.svg?style=flat-square&logo=windows&logoColor=white" alt="Platform: Windows x64" />
   <img src="https://img.shields.io/badge/engine-Electron%20%7C%20Chromium-090d16.svg?style=flat-square&logo=electron&logoColor=38bdf8" alt="Engine: Electron + Chromium" />
   <img src="https://img.shields.io/badge/privacy-Zero%20Telemetry-3b82f6.svg?style=flat-square" alt="Privacy: Zero Telemetry" />
@@ -195,7 +195,7 @@ hellfire/
 ## Tests
 
 ```bash
-# Run all 10 test suites (213 assertions)
+# Run all 11 test suites (225 assertions)
 npm test
 
 # Run the launch smoke test

@@ -15,6 +15,7 @@ const { runSuite7 } = require('./suite7_enterprise_qa_and_chaos');
 const { runSuite8 } = require('./suite8_compliance_network_and_security_audit');
 const { runSuite9 } = require('./suite9_zen_and_helium_features');
 const { runSuite10 } = require('./suite10_real_app_launch_and_entrypoint_smoke');
+const { runSuite11 } = require('./suite11_menu_dropdown_background_integrity');
 
 app.on('window-all-closed', (e) => {
   if (e && e.preventDefault) e.preventDefault();
@@ -39,7 +40,8 @@ app.whenReady().then(async () => {
     { id: 7, fn: runSuite7 },
     { id: 8, fn: runSuite8 },
     { id: 9, fn: runSuite9 },
-    { id: 10, fn: runSuite10 }
+    { id: 10, fn: runSuite10 },
+    { id: 11, fn: runSuite11 }
   ];
 
   for (const s of suites) {

@@ -20,7 +20,19 @@ const ALLOWED_CHANNELS = [
   'prompt:save-password',
   'prompt:save-address',
   'tab:split-state',
-  'glance:state'
+  'glance:state',
+  'menu:open-history',
+  'menu:clear-data',
+  'menu:bookmark-tab',
+  'menu:open-bookmarks',
+  'menu:open-downloads',
+  'menu:open-passwords',
+  'menu:open-extensions',
+  'menu:find-in-page',
+  'menu:open-settings',
+  'menu:about',
+  'menu:toggle-shield',
+  'menu:closed'
 ];
 
 const api = {
@@ -60,6 +72,7 @@ const api = {
   setModalOpen: (isOpen) => ipcRenderer.invoke('modal:set-open', isOpen),
   setBookmarksBarVisible: (visible) => ipcRenderer.invoke('bookmarks-bar:set-state', visible),
   setDropdownOffset: (offset) => ipcRenderer.invoke('chrome:set-dropdown-offset', offset),
+  openAppMenu: (coords) => ipcRenderer.invoke('menu:open-app-menu', coords),
 
   // History Management
   getHistory: (limit) => ipcRenderer.invoke('history:get', limit),
