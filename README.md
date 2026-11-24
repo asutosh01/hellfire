@@ -14,16 +14,31 @@
 </p>
 
 <p align="center">
-  <b>Fast, isolated, and quiet desktop web browser built with Electron and Chromium.</b><br>
-  Features hardware-backed credential encryption, network-level tracking defense, procedural WebGL graphics, and dual-pane split view.
+  <b>A privacy-focused, high-performance desktop web browser engineered for security, speed, and quiet focus.</b><br>
+  Zero telemetry, hardware-encrypted credentials, network-level tracking protection, encrypted DoH, and dual-pane split view.
 </p>
 
 <p align="center">
   <a href="https://drive.google.com/uc?export=download&id=1oVh8r2_AThhZ8SEELWG2xlTDyUGfaI1a"><b>Download Setup (.exe)</b></a> •
   <a href="https://drive.google.com/uc?export=download&id=12FW-lLgSu8V24YXplMVWTT9V8q761luG"><b>Download Portable (.exe)</b></a> •
+  <a href="#privacy-by-architecture">Privacy Architecture</a> •
   <a href="#features">Features</a> •
   <a href="#running-from-source">Build from Source</a>
 </p>
+
+---
+
+## Privacy by Architecture
+
+Most modern browsers collect background telemetry, log usage metrics, and expose local network endpoints. **Hell Fire is built with an uncompromising privacy-first model:**
+
+- **Zero Telemetry & Tracking:** No analytics libraries, no usage pings, and no telemetry beacons. Your browsing activity stays strictly on your local machine.
+- **Hardware-Backed Credential Vault:** Saved passwords and addresses are encrypted using native OS cryptography (Windows DPAPI via Electron `safeStorage`), bound to your Windows account.
+- **Built-in Network Defense Shield:** Blocks ads, tracking pixels, crypto miners, and CNAME-cloaked tracking scripts across 72 exact rules in Chromium's network layer before requests load.
+- **Encrypted DNS-over-HTTPS (DoH):** Queries domain names over encrypted TLS 1.3 tunnels supporting Cloudflare, Mullvad, and Quad9 to prevent ISP snooping and DNS hijacking.
+- **WebRTC LAN IP Protection:** Enforces strict UDP routing policies to block malicious scripts from harvesting your local LAN IP address.
+- **Permission Gating:** Access to camera, microphone, screen recording, and device sensors is blocked by default rather than silently granted.
+- **RAM-Only Incognito Isolation:** Private browsing runs in completely isolated session partitions. Cookies, history, and cache are purged from memory immediately upon closing.
 
 ---
 
