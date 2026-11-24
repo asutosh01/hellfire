@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-11-24T16:02:00.483Z",
+  "timestamp": "2026-11-24T16:49:07.793Z",
   "totalTests": 241,
   "totalPassed": 241,
   "totalFailed": 0,
-  "totalDurationMs": 13939,
+  "totalDurationMs": 15182,
   "successRate": "100.0%",
   "suites": [
     {
@@ -67,7 +67,7 @@
       ],
       "passed": 11,
       "failed": 0,
-      "durationMs": 57
+      "durationMs": 110
     },
     {
       "name": "Suite 2: Omnibox & Search Routing",
@@ -150,7 +150,7 @@
       ],
       "passed": 15,
       "failed": 0,
-      "durationMs": 860
+      "durationMs": 992
     },
     {
       "name": "Suite 3: WebGL Hellfire Engine & Idle Lifecycle",
@@ -223,7 +223,7 @@
       ],
       "passed": 13,
       "failed": 0,
-      "durationMs": 2752
+      "durationMs": 3103
     },
     {
       "name": "Suite 4: Password Manager & Autofill Vault",
@@ -291,7 +291,7 @@
       ],
       "passed": 12,
       "failed": 0,
-      "durationMs": 883
+      "durationMs": 830
     },
     {
       "name": "Suite 5: Security & Incognito Isolation",
@@ -349,7 +349,7 @@
       ],
       "passed": 10,
       "failed": 0,
-      "durationMs": 1727
+      "durationMs": 1758
     },
     {
       "name": "Suite 6: Visual & Aesthetic Design Directives",
@@ -630,7 +630,7 @@
       ],
       "passed": 37,
       "failed": 0,
-      "durationMs": 1167
+      "durationMs": 1154
     },
     {
       "name": "Suite 8: Compliance, Network (DoH), Download Sanitization & A11y",
@@ -738,7 +738,7 @@
       ],
       "passed": 20,
       "failed": 0,
-      "durationMs": 21
+      "durationMs": 5
     },
     {
       "name": "Suite 9: Zen & Helium Innovations (Split-View, Glance, CNAME Uncloaking)",
@@ -1069,22 +1069,22 @@
         {
           "title": "Real app launch produced ZERO UnhandledPromiseRejection errors",
           "status": "PASS",
-          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[126852:1124/213154.250:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[122480:1124/221901.466:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
         },
         {
           "title": "Real app launch produced ZERO TypeError exceptions (e.g. setWebRTCIPHandlingPolicy)",
           "status": "PASS",
-          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[126852:1124/213154.250:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[122480:1124/221901.466:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
         },
         {
           "title": "Real app launch produced ZERO ReferenceError exceptions",
           "status": "PASS",
-          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[126852:1124/213154.250:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[122480:1124/221901.466:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
         },
         {
           "title": "Real app launch produced ZERO SyntaxError exceptions",
           "status": "PASS",
-          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[126852:1124/213154.250:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[122480:1124/221901.466:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
         },
         {
           "title": "Real app process remained alive with active window (did not crash or exit on boot)",
@@ -1149,7 +1149,7 @@
       ],
       "passed": 19,
       "failed": 0,
-      "durationMs": 4623
+      "durationMs": 4636
     },
     {
       "name": "Suite 11: 3-Bar Menu & Viewport Integrity",
@@ -1217,7 +1217,7 @@
       ],
       "passed": 12,
       "failed": 0,
-      "durationMs": 1378
+      "durationMs": 2340
     },
     {
       "name": "Suite 12: Tab Drag & Drop Swapping and Reordering",
@@ -1305,7 +1305,7 @@
       ],
       "passed": 16,
       "failed": 0,
-      "durationMs": 464
+      "durationMs": 247
     }
   ]
 }
