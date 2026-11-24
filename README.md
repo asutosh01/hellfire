@@ -19,11 +19,10 @@
 </p>
 
 <p align="center">
-  <a href="https://drive.google.com/uc?export=download&id=1oVh8r2_AThhZ8SEELWG2xlTDyUGfaI1a"><b>Download Setup (.exe)</b></a> •
-  <a href="https://drive.google.com/uc?export=download&id=12FW-lLgSu8V24YXplMVWTT9V8q761luG"><b>Download Portable (.exe)</b></a> •
-  <a href="#privacy-by-architecture">Privacy Architecture</a> •
-  <a href="#features">Features</a> •
-  <a href="#running-from-source">Build from Source</a>
+  <a href="https://github.com/asutosh01/hellfire/releases/latest/download/Hell-Fire-Setup-1.0.0.exe"><b>Download Setup (.exe)</b></a> •
+  <a href="https://github.com/asutosh01/hellfire/releases/latest/download/Hell-Fire-1.0.0-Portable.exe"><b>Download Portable (.exe)</b></a> •
+  <a href="#option-2-powershell-quick-install-terminal">CLI Install</a> •
+  <a href="#option-3-run--build-from-source-zero-prebuilt-binaries">Build from Source</a>
 </p>
 
 ---
@@ -57,35 +56,66 @@ Most modern browsers collect background telemetry, log usage metrics, and expose
 
 ## Download & Installation
 
-### Windows x64
+### Option 1: Official GitHub Releases (Primary)
+
+Download directly from GitHub's verified release infrastructure:
 
 <p>
-  <a href="https://drive.google.com/uc?export=download&id=1oVh8r2_AThhZ8SEELWG2xlTDyUGfaI1a">
-    <img src="https://img.shields.io/badge/Download-One--Click%20Setup%20(.exe)-2563eb?style=for-the-badge&logo=windows&logoColor=white" alt="Download Windows Installer" />
+  <a href="https://github.com/asutosh01/hellfire/releases/latest/download/Hell-Fire-Setup-1.0.0.exe">
+    <img src="https://img.shields.io/badge/GitHub%20Release-Setup%20Installer%20(.exe)-2563eb?style=for-the-badge&logo=github&logoColor=white" alt="Download Windows Installer from GitHub" />
   </a>
   &nbsp;
-  <a href="https://drive.google.com/uc?export=download&id=12FW-lLgSu8V24YXplMVWTT9V8q761luG">
-    <img src="https://img.shields.io/badge/Download-Portable%20Edition%20(.exe)-0284c7?style=for-the-badge&logo=windows&logoColor=white" alt="Download Portable Edition" />
+  <a href="https://github.com/asutosh01/hellfire/releases/latest/download/Hell-Fire-1.0.0-Portable.exe">
+    <img src="https://img.shields.io/badge/GitHub%20Release-Portable%20Edition%20(.exe)-0284c7?style=for-the-badge&logo=github&logoColor=white" alt="Download Portable Edition from GitHub" />
   </a>
 </p>
 
 - **Setup Installer (123 MB):** One-click self-contained installer. Automatically installs to `%LocalAppData%\Programs\Hell Fire`, creates desktop and Start menu shortcuts, registers in Windows Settings, and launches.
 - **Portable Edition (112 MB):** Standalone `.exe` that runs from any folder or USB drive with zero installation.
+- *(Alternative Google Drive mirrors: [Setup Installer](https://drive.google.com/uc?export=download&id=1oVh8r2_AThhZ8SEELWG2xlTDyUGfaI1a) | [Portable](https://drive.google.com/uc?export=download&id=12FW-lLgSu8V24YXplMVWTT9V8q761luG))*
 
-The installer puts the browser in `%LocalAppData%\Programs\Hell Fire`, adds Desktop and Start Menu shortcuts, registers the app in Windows Settings, and starts it automatically. It requires no administrator rights or Node.js.
+### Option 2: PowerShell Quick Install (Terminal)
 
-## Running from Source
+Run this command in standard PowerShell (no administrator privileges required):
 
-Prerequisites: Node.js 18+ and npm 9+ on Windows 10/11 x64.
+```powershell
+curl.exe -L "https://github.com/asutosh01/hellfire/releases/latest/download/Hell-Fire-Setup-1.0.0.exe" -o "$env:TEMP\Hell-Fire-Setup.exe"; Start-Process "$env:TEMP\Hell-Fire-Setup.exe"
+```
+
+### Option 3: Run & Build from Source (Zero Prebuilt Binaries)
+
+For developers and privacy auditors who prefer to audit and execute the raw source code directly:
 
 ```bash
+# 1. Clone the repository
 git clone https://github.com/asutosh01/hellfire.git
 cd hellfire
+
+# 2. Install dependencies & audit code
 npm install
+
+# 3. Launch directly from source
 npm start
+
+# 4. (Optional) Compile your own standalone Windows binaries
+npm run dist
 ```
 
 Double-click `Launch Hell Fire.bat` or run `standalone\launch.vbs` for a console-free launch.
+
+### Cryptographic Verification (SHA-256)
+
+Verify downloaded binaries before running:
+
+| Binary | SHA-256 Checksum |
+| :--- | :--- |
+| `Hell-Fire-Setup-1.0.0.exe` | `9c232f05b9fc1c4e4d8e641e60240c3d5a0457d10fb6a77f4c72b76aef36fb98` |
+| `Hell-Fire-1.0.0-Portable.exe` | `c8278e43ab4c8d0ad932ea162c13f65ade4aebeaa4ae39d1f88eb838125f0942` |
+
+In PowerShell:
+```powershell
+Get-FileHash .\Hell-Fire-Setup-1.0.0.exe -Algorithm SHA256
+```
 
 ### Building Binaries
 
