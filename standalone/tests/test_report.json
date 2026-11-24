@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-11-24T13:44:19.617Z",
+  "timestamp": "2026-11-24T13:55:41.465Z",
   "totalTests": 213,
   "totalPassed": 213,
   "totalFailed": 0,
-  "totalDurationMs": 12007,
+  "totalDurationMs": 11937,
   "successRate": "100.0%",
   "suites": [
     {
@@ -67,7 +67,7 @@
       ],
       "passed": 11,
       "failed": 0,
-      "durationMs": 40
+      "durationMs": 49
     },
     {
       "name": "Suite 2: Omnibox & Search Routing",
@@ -150,7 +150,7 @@
       ],
       "passed": 15,
       "failed": 0,
-      "durationMs": 872
+      "durationMs": 869
     },
     {
       "name": "Suite 3: WebGL Hellfire Engine & Idle Lifecycle",
@@ -223,7 +223,7 @@
       ],
       "passed": 13,
       "failed": 0,
-      "durationMs": 2745
+      "durationMs": 2707
     },
     {
       "name": "Suite 4: Password Manager & Autofill Vault",
@@ -291,7 +291,7 @@
       ],
       "passed": 12,
       "failed": 0,
-      "durationMs": 851
+      "durationMs": 842
     },
     {
       "name": "Suite 5: Security & Incognito Isolation",
@@ -349,7 +349,7 @@
       ],
       "passed": 10,
       "failed": 0,
-      "durationMs": 1696
+      "durationMs": 1726
     },
     {
       "name": "Suite 6: Visual & Aesthetic Design Directives",
@@ -437,7 +437,7 @@
       ],
       "passed": 16,
       "failed": 0,
-      "durationMs": 4
+      "durationMs": 3
     },
     {
       "name": "Suite 7: Enterprise QA, IPC Fuzzing, SRE Memory & Chaos",
@@ -630,7 +630,7 @@
       ],
       "passed": 37,
       "failed": 0,
-      "durationMs": 1151
+      "durationMs": 1139
     },
     {
       "name": "Suite 8: Compliance, Network (DoH), Download Sanitization & A11y",
@@ -738,7 +738,7 @@
       ],
       "passed": 20,
       "failed": 0,
-      "durationMs": 3
+      "durationMs": 10
     },
     {
       "name": "Suite 9: Zen & Helium Innovations (Split-View, Glance, CNAME Uncloaking)",
@@ -1046,7 +1046,7 @@
       ],
       "passed": 60,
       "failed": 0,
-      "durationMs": 6
+      "durationMs": 8
     },
     {
       "name": "Suite 10: Real Entrypoint & E2E App Launch Smoke Test",
@@ -1069,22 +1069,22 @@
         {
           "title": "Real app launch produced ZERO UnhandledPromiseRejection errors",
           "status": "PASS",
-          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[79896:1124/191415.241:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child_"
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[10128:1124/192537.146:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child_"
         },
         {
           "title": "Real app launch produced ZERO TypeError exceptions (e.g. setWebRTCIPHandlingPolicy)",
           "status": "PASS",
-          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[79896:1124/191415.241:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child_"
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[10128:1124/192537.146:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child_"
         },
         {
           "title": "Real app launch produced ZERO ReferenceError exceptions",
           "status": "PASS",
-          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[79896:1124/191415.241:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child_"
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[10128:1124/192537.146:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child_"
         },
         {
           "title": "Real app launch produced ZERO SyntaxError exceptions",
           "status": "PASS",
-          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[79896:1124/191415.241:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child_"
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[10128:1124/192537.146:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child_"
         },
         {
           "title": "Real app process remained alive with active window (did not crash or exit on boot)",
@@ -1149,7 +1149,7 @@
       ],
       "passed": 19,
       "failed": 0,
-      "durationMs": 4639
+      "durationMs": 4584
     }
   ]
 }
