@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/asutosh01/hellfire"><img src="https://img.shields.io/badge/version-1.0.0-2563eb.svg?style=flat-square" alt="Version 1.0.0" /></a>
-  <a href="#tests"><img src="https://img.shields.io/badge/tests-225%20passed-22c55e.svg?style=flat-square" alt="Tests 225 Passed" /></a>
+  <a href="#tests"><img src="https://img.shields.io/badge/tests-241%20passed-22c55e.svg?style=flat-square" alt="Tests 241 Passed" /></a>
   <img src="https://img.shields.io/badge/platform-Windows%20x64-161b22.svg?style=flat-square&logo=windows&logoColor=white" alt="Platform: Windows x64" />
   <img src="https://img.shields.io/badge/engine-Electron%20%7C%20Chromium-090d16.svg?style=flat-square&logo=electron&logoColor=38bdf8" alt="Engine: Electron + Chromium" />
   <img src="https://img.shields.io/badge/privacy-Zero%20Telemetry-3b82f6.svg?style=flat-square" alt="Privacy: Zero Telemetry" />
@@ -44,6 +44,7 @@ Most modern browsers collect background telemetry, log usage metrics, and expose
 ## Features
 
 - **Frameless UI:** Obsidian dark palette (`#090d16` canvas, `#161b22` toolbar, `#2563eb` sapphire accent) built with standard HTML/CSS.
+- **Tab drag & drop swapping:** Smooth drag-and-drop tab reordering with spring-animated FLIP transitions and edge autoscrolling, or via keyboard with `Ctrl+Shift+PageUp` / `Ctrl+Shift+PageDown` (`Ctrl+Shift+Left`/`Right`).
 - **WebGL flame animation:** Procedural GLSL combustion canvas on the new tab page running at 0.6x speed; suspends automatically when the window is minimized or hidden.
 - **Dual-pane split view:** Side-by-side 50/50 view (`Ctrl+Alt+S`) to view two pages simultaneously.
 - **Link Glance:** Centered modal preview overlay to inspect links without leaving the current page.
@@ -195,7 +196,7 @@ hellfire/
 ## Tests
 
 ```bash
-# Run all 11 test suites (225 assertions)
+# Run all 12 test suites (241 assertions)
 npm test
 
 # Run the launch smoke test

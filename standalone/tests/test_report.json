@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-11-24T15:19:30.693Z",
-  "totalTests": 225,
-  "totalPassed": 225,
+  "timestamp": "2026-11-24T16:02:00.483Z",
+  "totalTests": 241,
+  "totalPassed": 241,
   "totalFailed": 0,
-  "totalDurationMs": 21619,
+  "totalDurationMs": 13939,
   "successRate": "100.0%",
   "suites": [
     {
@@ -67,7 +67,7 @@
       ],
       "passed": 11,
       "failed": 0,
-      "durationMs": 39
+      "durationMs": 57
     },
     {
       "name": "Suite 2: Omnibox & Search Routing",
@@ -150,7 +150,7 @@
       ],
       "passed": 15,
       "failed": 0,
-      "durationMs": 6626
+      "durationMs": 860
     },
     {
       "name": "Suite 3: WebGL Hellfire Engine & Idle Lifecycle",
@@ -223,7 +223,7 @@
       ],
       "passed": 13,
       "failed": 0,
-      "durationMs": 3844
+      "durationMs": 2752
     },
     {
       "name": "Suite 4: Password Manager & Autofill Vault",
@@ -291,7 +291,7 @@
       ],
       "passed": 12,
       "failed": 0,
-      "durationMs": 801
+      "durationMs": 883
     },
     {
       "name": "Suite 5: Security & Incognito Isolation",
@@ -437,7 +437,7 @@
       ],
       "passed": 16,
       "failed": 0,
-      "durationMs": 2
+      "durationMs": 3
     },
     {
       "name": "Suite 7: Enterprise QA, IPC Fuzzing, SRE Memory & Chaos",
@@ -630,7 +630,7 @@
       ],
       "passed": 37,
       "failed": 0,
-      "durationMs": 1070
+      "durationMs": 1167
     },
     {
       "name": "Suite 8: Compliance, Network (DoH), Download Sanitization & A11y",
@@ -738,7 +738,7 @@
       ],
       "passed": 20,
       "failed": 0,
-      "durationMs": 5
+      "durationMs": 21
     },
     {
       "name": "Suite 9: Zen & Helium Innovations (Split-View, Glance, CNAME Uncloaking)",
@@ -1046,7 +1046,7 @@
       ],
       "passed": 60,
       "failed": 0,
-      "durationMs": 5
+      "durationMs": 4
     },
     {
       "name": "Suite 10: Real Entrypoint & E2E App Launch Smoke Test",
@@ -1069,22 +1069,22 @@
         {
           "title": "Real app launch produced ZERO UnhandledPromiseRejection errors",
           "status": "PASS",
-          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[110340:1124/204925.421:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[126852:1124/213154.250:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
         },
         {
           "title": "Real app launch produced ZERO TypeError exceptions (e.g. setWebRTCIPHandlingPolicy)",
           "status": "PASS",
-          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[110340:1124/204925.421:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[126852:1124/213154.250:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
         },
         {
           "title": "Real app launch produced ZERO ReferenceError exceptions",
           "status": "PASS",
-          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[110340:1124/204925.421:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[126852:1124/213154.250:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
         },
         {
           "title": "Real app launch produced ZERO SyntaxError exceptions",
           "status": "PASS",
-          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[110340:1124/204925.421:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[126852:1124/213154.250:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child"
         },
         {
           "title": "Real app process remained alive with active window (did not crash or exit on boot)",
@@ -1149,7 +1149,7 @@
       ],
       "passed": 19,
       "failed": 0,
-      "durationMs": 5078
+      "durationMs": 4623
     },
     {
       "name": "Suite 11: 3-Bar Menu & Viewport Integrity",
@@ -1217,7 +1217,95 @@
       ],
       "passed": 12,
       "failed": 0,
-      "durationMs": 2422
+      "durationMs": 1378
+    },
+    {
+      "name": "Suite 12: Tab Drag & Drop Swapping and Reordering",
+      "tests": [
+        {
+          "title": "main.js defines reorderTabs function",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js registers tab:reorder IPC handler",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "preload.js exposes reorderTabs API",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.js contains attachTabDragAndDrop architecture",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.js contains moveActiveTab function for keyboard reordering",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.js binds Ctrl+Shift+PageUp and PageDown/Arrow keys",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.js registers Escape cancellation handler",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.css styles .tab.tab--dragging with grabbing cursor and elevated z-index",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.css styles .tab.tab--drag-animating with spring transition",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.css styles body.is-tab-dragging",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "reorderTabs logic correctly swaps and sequences tab objects",
+          "status": "PASS",
+          "extra": "Got: 103,101,104,102"
+        },
+        {
+          "title": "reorderTabs preserves relative order of unmentioned tabs",
+          "status": "PASS",
+          "extra": "Got: 104,101,102,103"
+        },
+        {
+          "title": "UI initializes tabs in correct starting DOM order",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "DOM accurately updates when swapping Tab A after Tab B",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "DOM accurately updates when swapping Tab C before Tab B",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "btnNewTab always remains at the end of tabsScroll",
+          "status": "PASS",
+          "extra": ""
+        }
+      ],
+      "passed": 16,
+      "failed": 0,
+      "durationMs": 464
     }
   ]
 }

@@ -1022,7 +1022,12 @@
     tabBtn.appendChild(titleSpan);
     tabBtn.appendChild(closeBtn);
 
-    tabBtn.addEventListener('click', () => {
+    tabBtn.addEventListener('click', (e) => {
+      if (tabBtn._didJustDrag) {
+        tabBtn._didJustDrag = false;
+        e.stopImmediatePropagation();
+        return;
+      }
       window.privateFox?.switchTab(tabData.id);
     });
 
@@ -1068,6 +1073,7 @@
     }
 
     updateTabAudioState(tabBtn, tabData);
+    attachTabDragAndDrop(tabBtn);
     return tabBtn;
   }
 
@@ -1181,6 +1187,261 @@
 
     updateTabAudioState(tabBtn, tabData);
   }
+
+  // ─────────────────────────────────────────────────────────────
+  // TAB DRAG & DROP SWAPPING ARCHITECTURE
+  // ─────────────────────────────────────────────────────────────
+  let activeTabDrag = null;
+
+  function attachTabDragAndDrop(tabBtn) {
+    if (!tabBtn || tabBtn._hasDragDrop) return;
+    tabBtn._hasDragDrop = true;
+
+    let startX = 0;
+    let startY = 0;
+    let isDown = false;
+    let isDragging = false;
+    let container = null;
+    let siblings = [];
+    let initialCenters = [];
+    let origIndex = -1;
+    let targetIndex = -1;
+    let tabWidth = 0;
+    const gap = 4;
+
+    tabBtn.addEventListener('pointerdown', (e) => {
+      // Primary button only, ignore clicks on close or audio buttons
+      if (e.button !== 0) return;
+      if (e.target.closest('.tab__close') || e.target.closest('.tab__audio-btn')) return;
+
+      container = tabBtn.parentElement;
+      if (!container || (container !== tabsScroll && container !== tabsPinned)) return;
+
+      isDown = true;
+      isDragging = false;
+      startX = e.clientX;
+      startY = e.clientY;
+
+      const onPointerMove = (moveEvt) => {
+        if (!isDown) return;
+
+        const deltaX = moveEvt.clientX - startX;
+        const deltaY = moveEvt.clientY - startY;
+
+        if (!isDragging) {
+          // Movement threshold (4px)
+          if (Math.hypot(deltaX, deltaY) >= 4) {
+            isDragging = true;
+            document.body.classList.add('is-tab-dragging');
+            tabBtn.classList.add('tab--dragging');
+
+            try {
+              tabBtn.setPointerCapture(moveEvt.pointerId);
+            } catch (err) {}
+
+            siblings = Array.from(container.querySelectorAll('.tab'));
+            origIndex = siblings.indexOf(tabBtn);
+            targetIndex = origIndex;
+
+            if (siblings.length <= 1) return;
+
+            initialCenters = siblings.map(s => {
+              const r = s.getBoundingClientRect();
+              return r.left + r.width / 2;
+            });
+
+            const myRect = tabBtn.getBoundingClientRect();
+            tabWidth = myRect.width;
+
+            activeTabDrag = {
+              cancel: () => cleanupDrag(true)
+            };
+          } else {
+            return;
+          }
+        }
+
+        if (isDragging && siblings.length > 1) {
+          // Edge autoscroll for tabsScroll container
+          if (container === tabsScroll) {
+            const containerRect = tabsScroll.getBoundingClientRect();
+            if (moveEvt.clientX < containerRect.left + 40) {
+              tabsScroll.scrollLeft -= 8;
+            } else if (moveEvt.clientX > containerRect.right - 40) {
+              tabsScroll.scrollLeft += 8;
+            }
+          }
+
+          // Follow pointer horizontally
+          tabBtn.style.transform = `translateX(${deltaX}px) scale(1.04)`;
+
+          // Visual center of dragged tab
+          const currentCenter = initialCenters[origIndex] + deltaX;
+
+          // Determine target index among siblings
+          let newTarget = origIndex;
+          if (deltaX > 0) {
+            for (let i = origIndex + 1; i < siblings.length; i++) {
+              if (currentCenter > initialCenters[i]) {
+                newTarget = i;
+              }
+            }
+          } else if (deltaX < 0) {
+            for (let i = origIndex - 1; i >= 0; i--) {
+              if (currentCenter < initialCenters[i]) {
+                newTarget = i;
+              }
+            }
+          }
+
+          targetIndex = Math.max(0, Math.min(siblings.length - 1, newTarget));
+
+          // Smoothly translate siblings out of the way
+          const shiftAmount = tabWidth + gap;
+          siblings.forEach((s, i) => {
+            if (i === origIndex) return;
+
+            s.classList.add('tab--drag-animating');
+            if (origIndex < targetIndex && i > origIndex && i <= targetIndex) {
+              s.style.transform = `translateX(${-shiftAmount}px)`;
+            } else if (origIndex > targetIndex && i >= targetIndex && i < origIndex) {
+              s.style.transform = `translateX(${shiftAmount}px)`;
+            } else {
+              s.style.transform = 'translateX(0px)';
+            }
+          });
+        }
+      };
+
+      const cleanupDrag = (cancelled = false) => {
+        if (!isDown && !isDragging) {
+          isDown = false;
+          return;
+        }
+
+        window.removeEventListener('pointermove', onPointerMove);
+        window.removeEventListener('pointerup', onPointerUp);
+        window.removeEventListener('pointercancel', onPointerUp);
+
+        activeTabDrag = null;
+
+        if (isDragging) {
+          tabBtn._didJustDrag = true;
+          setTimeout(() => { tabBtn._didJustDrag = false; }, 120);
+
+          document.body.classList.remove('is-tab-dragging');
+          tabBtn.classList.remove('tab--dragging');
+
+          try {
+            if (tabBtn.hasPointerCapture(e.pointerId)) {
+              tabBtn.releasePointerCapture(e.pointerId);
+            }
+          } catch (err) {}
+
+          // Reset sibling transforms
+          siblings.forEach(s => {
+            s.classList.remove('tab--drag-animating');
+            s.style.transform = '';
+          });
+          tabBtn.style.transform = '';
+
+          if (!cancelled && targetIndex !== -1 && targetIndex !== origIndex && container) {
+            const targetSibling = siblings[targetIndex];
+            if (targetIndex > origIndex) {
+              targetSibling.after(tabBtn);
+            } else {
+              targetSibling.before(tabBtn);
+            }
+
+            if (btnNewTab && btnNewTab.parentElement === tabsScroll) {
+              tabsScroll.appendChild(btnNewTab);
+            }
+
+            const orderedTabIds = Array.from(document.querySelectorAll('#tabsPinned .tab, #tabsScroll .tab'))
+              .map(el => el.getAttribute('data-tab-id'))
+              .filter(Boolean);
+            tabList = orderedTabIds;
+            window.privateFox?.reorderTabs(orderedTabIds);
+          }
+        }
+
+        isDown = false;
+        isDragging = false;
+      };
+
+      const onPointerUp = () => {
+        cleanupDrag(false);
+      };
+
+      window.addEventListener('pointermove', onPointerMove, { passive: true });
+      window.addEventListener('pointerup', onPointerUp, { once: true });
+      window.addEventListener('pointercancel', onPointerUp, { once: true });
+    });
+  }
+
+  function moveActiveTab(direction) {
+    if (!activeTabId) return;
+    const currentTabEl = document.getElementById(`tab-${activeTabId}`);
+    if (!currentTabEl) return;
+    const container = currentTabEl.parentElement;
+    if (!container || (container !== tabsScroll && container !== tabsPinned)) return;
+
+    const tabs = Array.from(container.querySelectorAll('.tab'));
+    const idx = tabs.indexOf(currentTabEl);
+    if (idx === -1) return;
+
+    const targetIdx = idx + direction;
+    if (targetIdx < 0 || targetIdx >= tabs.length) return;
+
+    const targetTabEl = tabs[targetIdx];
+
+    const rect1 = currentTabEl.getBoundingClientRect();
+    const rect2 = targetTabEl.getBoundingClientRect();
+    const delta1 = rect1.left - rect2.left;
+    const delta2 = rect2.left - rect1.left;
+
+    if (direction > 0) {
+      targetTabEl.after(currentTabEl);
+    } else {
+      targetTabEl.before(currentTabEl);
+    }
+
+    if (btnNewTab && btnNewTab.parentElement === tabsScroll) {
+      tabsScroll.appendChild(btnNewTab);
+    }
+
+    currentTabEl.style.transition = 'none';
+    targetTabEl.style.transition = 'none';
+    currentTabEl.style.transform = `translateX(${delta1}px)`;
+    targetTabEl.style.transform = `translateX(${delta2}px)`;
+
+    requestAnimationFrame(() => {
+      currentTabEl.style.transition = 'transform 180ms cubic-bezier(0.2, 0, 0, 1)';
+      targetTabEl.style.transition = 'transform 180ms cubic-bezier(0.2, 0, 0, 1)';
+      currentTabEl.style.transform = '';
+      targetTabEl.style.transform = '';
+      setTimeout(() => {
+        currentTabEl.style.transition = '';
+        targetTabEl.style.transition = '';
+      }, 190);
+    });
+
+    currentTabEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+
+    const orderedTabIds = Array.from(document.querySelectorAll('#tabsPinned .tab, #tabsScroll .tab'))
+      .map(el => el.getAttribute('data-tab-id'))
+      .filter(Boolean);
+    tabList = orderedTabIds;
+    window.privateFox?.reorderTabs(orderedTabIds);
+  }
+
+  // Cancel active drag on Escape
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && activeTabDrag) {
+      e.preventDefault();
+      activeTabDrag.cancel();
+    }
+  });
 
   // ─────────────────────────────────────────────────────────────
   // ELECTRON IPC SUBSCRIPTIONS
@@ -3389,6 +3650,15 @@
           : (currIdx + 1) % tabList.length;
         window.privateFox?.switchTab(tabList[nextIdx]);
       }
+    }
+    // Ctrl+Shift+PageUp / Ctrl+Shift+PageDown / Ctrl+Shift+ArrowLeft / ArrowRight: Move Active Tab
+    if (e.ctrlKey && e.shiftKey && (e.key === 'PageUp' || e.key === 'ArrowLeft')) {
+      e.preventDefault();
+      moveActiveTab(-1);
+    }
+    if (e.ctrlKey && e.shiftKey && (e.key === 'PageDown' || e.key === 'ArrowRight')) {
+      e.preventDefault();
+      moveActiveTab(1);
     }
     // Ctrl+L or Alt+D: Focus Omnibox
     if ((e.ctrlKey && e.key.toLowerCase() === 'l') || (e.altKey && e.key.toLowerCase() === 'd')) {

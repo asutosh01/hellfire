@@ -1231,6 +1231,31 @@ function closeTabsToRight(winState, tabId) {
   return { success: true };
 }
 
+function reorderTabs(winState, orderedTabIds) {
+  const ws = getWindowState(winState);
+  if (!ws || !Array.isArray(orderedTabIds)) return { success: false };
+
+  const tabMap = new Map();
+  ws.tabs.forEach(t => tabMap.set(String(t.id), t));
+
+  const newTabs = [];
+  orderedTabIds.forEach(id => {
+    const key = String(id);
+    if (tabMap.has(key)) {
+      newTabs.push(tabMap.get(key));
+      tabMap.delete(key);
+    }
+  });
+
+  // Preserve any remaining tabs in original order
+  for (const remainingTab of tabMap.values()) {
+    newTabs.push(remainingTab);
+  }
+
+  ws.tabs = newTabs;
+  return { success: true, count: ws.tabs.length };
+}
+
 // ─────────────────────────────────────────────────────────────
 // BROWSER WINDOW FACTORY (Normal & Incognito)
 // ─────────────────────────────────────────────────────────────
@@ -1477,6 +1502,10 @@ ipcMain.handle('tab:close', (event, tabId) => {
   const ws = getWindowState(event);
   closeTab(ws, tabId);
   return { success: true };
+});
+
+ipcMain.handle('tab:reorder', (event, orderedTabIds) => {
+  return reorderTabs(event, orderedTabIds);
 });
 
 ipcMain.handle('tab:navigate', (event, input) => {

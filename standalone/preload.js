@@ -45,6 +45,7 @@ const api = {
   duplicateTab: (tabId) => ipcRenderer.invoke('tab:duplicate', tabId),
   closeOtherTabs: (tabId) => ipcRenderer.invoke('tab:close-others', tabId),
   closeTabsToRight: (tabId) => ipcRenderer.invoke('tab:close-to-right', tabId),
+  reorderTabs: (orderedTabIds) => ipcRenderer.invoke('tab:reorder', orderedTabIds),
   openTabContextMenu: (tabId) => ipcRenderer.invoke('tab:context-menu', tabId),
   
   // Split View Tiling (Zen-Inspired)
