@@ -1,0 +1,48 @@
+# Dependency Directories
+node_modules/
+**/node_modules/
+
+# Legacy Binaries & Local Firefox Profile (Keep repository lean)
+app/
+profile/
+backups/
+/ui/
+backup-profile.bat
+restore-profile.bat
+user.js.master
+launch-private-fox.bat
+
+# Build & Packaging Outputs
+dist/
+**/dist/
+build/
+**/build/
+out/
+**/out/
+*.exe
+*.7z
+*.blockmap
+*.bak
+*.tmp
+
+# Local User Data & Cryptographic Vaults
+standalone/data/vault.enc
+standalone/data/history.json
+standalone/data/bookmarks.json
+standalone/data/settings.json
+
+# Logs & Diagnostics
+*.log
+**/debug.log
+**/out.log
+**/err.log
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment Configuration
+.env
+.env.*
+!.env.example

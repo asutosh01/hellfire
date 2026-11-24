@@ -1,0 +1,1962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hell Fire — New Tab</title>
+  <link rel="icon" type="image/png" href="assets/favicon-32.png">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self';">
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url('fonts/inter-latin-400-normal.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url('fonts/inter-latin-500-normal.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url('fonts/inter-latin-600-normal.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url('fonts/inter-latin-700-normal.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url('fonts/JetBrainsMono-Regular.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url('fonts/JetBrainsMono-Regular.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url('fonts/JetBrainsMono-Bold.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url('fonts/JetBrainsMono-Bold.ttf') format('truetype');
+    }
+
+    :root {
+      --bg-root:       #090d16;
+      --bg-card:       #161b22;
+      --bg-card-hover: #21262d;
+      --border:        #30363d;
+      --border-subtle: #21262d;
+      --border-active: #2563eb;
+      --border-focus:  #3b82f6;
+      --text-main:     #f0f6fc;
+      --text-sub:      #c9d1d9;
+      --text-muted:    #8b949e;
+      --text-ghost:    #6e7681;
+      --accent-blue:   #2563eb;
+      --accent-hover:  #1d4ed8;
+      --accent-solid:  #3b82f6;
+      --accent-subtle: #172554;
+      --accent-text:   #60a5fa;
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: "JetBrains Mono", "Cascadia Code", "Cascadia Mono", "SF Mono", Consolas, "Liberation Mono", ui-monospace, monospace;
+
+      --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-root);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      font-feature-settings: 'cv02' 1, 'cv03' 1, 'cv04' 1, 'cv11' 1, 'tnum' 1, 'calt' 1, 'zero' 1;
+      letter-spacing: -0.012em;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
+      user-select: none;
+      padding: 56px 24px 64px;
+    }
+
+    /* Ambient glow disabled: clean engineering-grade dark theme */
+    .top-ambient-glow {
+      display: none !important;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       HERO CONTENT STAGE
+    ═══════════════════════════════════════════════════════════ */
+    .hero-container {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      max-width: 820px;
+    }
+
+    /* Brand Logo & Title */
+    .hero-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+      margin-bottom: 28px;
+    }
+
+    .hero-brand-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      transition: transform 240ms var(--ease-spring);
+    }
+
+    .hero-logo:hover .hero-brand-icon {
+      transform: translateY(-3px) scale(1.04);
+      border: none;
+      box-shadow: none;
+    }
+
+    .hero-brand-img {
+      width: 82px;
+      height: 82px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 18px rgba(59, 130, 246, 0.45));
+      transition: transform 240ms var(--ease-spring), filter 240ms ease;
+    }
+
+    .hero-logo:hover .hero-brand-img {
+      transform: scale(1.03);
+      filter: drop-shadow(0 8px 30px rgba(59, 130, 246, 0.7));
+    }
+
+    .brand-title {
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      text-wrap: balance;
+    }
+
+    .brand-title strong {
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .fire-accent,
+    .red-accent {
+      color: #3b82f6;
+      text-shadow: none;
+    }
+
+    .brand-tagline {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      text-wrap: pretty;
+      font-weight: 400;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       OMNI-SEARCH BAR WITH INLINE ENGINE DROPDOWN
+    ═══════════════════════════════════════════════════════════ */
+    .search-box {
+      width: 100%;
+      max-width: 620px;
+      height: 48px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      gap: 6px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+      position: relative;
+      z-index: 100;
+      transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms var(--ease-spring);
+    }
+
+    .search-box:focus-within {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 1px #3b82f6, 0 8px 24px rgba(0, 0, 0, 0.6);
+      transform: translateY(-1px);
+    }
+
+    /* Engine Dropdown Trigger (Left side) */
+    .engine-dropdown-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .engine-select-btn {
+      height: 34px;
+      padding: 0 10px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--text-sub);
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease, transform 140ms var(--ease-spring);
+    }
+
+    .engine-select-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+    }
+
+    .engine-select-btn:active {
+      transform: scale(0.96);
+    }
+
+    .engine-select-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .engine-select-icon svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
+    .engine-select-name {
+      line-height: 1;
+    }
+
+    .engine-chevron {
+      color: var(--text-muted);
+      transition: transform 180ms ease;
+    }
+
+    .engine-dropdown-wrap.open .engine-chevron {
+      transform: rotate(180deg);
+    }
+
+    /* Engine Menu Popover */
+    .engine-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      width: 210px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      z-index: 999;
+      transform-origin: top left;
+      animation: engineMenuIn 160ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .engine-menu[hidden] {
+      display: none !important;
+    }
+
+    @keyframes engineMenuIn {
+      from {
+        opacity: 0;
+        transform: translateY(-6px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .engine-menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 10px;
+      border-radius: 6px;
+      color: var(--text-sub);
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 400;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      width: 100%;
+      text-align: left;
+      transition: background-color 120ms ease, color 120ms ease;
+    }
+
+    .engine-menu-item:hover {
+      background: #21262d;
+      color: #ffffff;
+    }
+
+    .engine-menu-item.active {
+      background: #172554;
+      color: #ffffff;
+    }
+
+    .engine-menu-item__left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .engine-menu-item__icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .engine-menu-item__icon svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
+    .engine-menu-item__check {
+      color: #3b82f6;
+      display: none;
+    }
+
+    .engine-menu-item.active .engine-menu-item__check {
+      display: inline-flex;
+    }
+
+    /* Input Field */
+    .search-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 14.5px;
+      padding: 0 8px;
+    }
+
+    .search-input::placeholder {
+      color: var(--text-muted);
+      opacity: 0.75;
+    }
+
+    /* Dynamic Action Button (Right Side: Glass -> Enter) */
+    .search-action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 6px;
+      cursor: pointer;
+      user-select: none;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 0;
+      transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease, transform 140ms var(--ease-spring);
+    }
+
+    .search-action-btn:hover {
+      background: #21262d;
+      color: #ffffff;
+    }
+
+    .search-action-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Has-text Enter button state (Solid Royal Blue) */
+    .search-action-btn.has-text {
+      background: #2563eb;
+      border: 1px solid #1d4ed8;
+      color: #ffffff;
+      width: auto;
+      padding: 0 10px;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+
+    .search-action-btn.has-text:hover {
+      background: #1d4ed8;
+      border-color: #1d4ed8;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .action-icon {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .action-icon[hidden] {
+      display: none !important;
+    }
+
+    .enter-text {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: normal;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       AUTHENTIC BROWSER SPEED DIAL TILES (ELEVATED SQUIRCLES)
+    ═══════════════════════════════════════════════════════════ */
+    .shortcuts-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 20px;
+      justify-content: center;
+      margin-bottom: 34px;
+      width: 100%;
+      max-width: 680px;
+    }
+
+    .shortcut-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 76px;
+      user-select: none;
+      transition: transform 140ms var(--ease-spring);
+    }
+
+    .shortcut-tile {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      transition: background-color 140ms ease, border-color 140ms ease, transform 140ms var(--ease-spring), box-shadow 140ms ease;
+    }
+
+    .shortcut-tile:hover {
+      background: #21262d;
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+    }
+
+    .shortcut-tile:active {
+      transform: scale(0.96);
+    }
+
+    .shortcut-tile__logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+
+    .shortcut-tile__logo svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .shortcut-tile__delete {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 18px;
+      height: 18px;
+      border-radius: 9px;
+      background: #21262d;
+      border: 1px solid #30363d;
+      color: #8b949e;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 10px;
+      line-height: 1;
+      transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease, transform 120ms ease;
+      z-index: 5;
+    }
+
+    .shortcut-tile:hover .shortcut-tile__delete {
+      display: flex;
+    }
+
+    .shortcut-tile__delete:hover {
+      background: #30363d;
+      color: #ffffff;
+      border-color: #8b949e;
+      transform: scale(1.12);
+    }
+
+    .shortcut-item__title {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-sub);
+      margin-top: 8px;
+      text-align: center;
+      max-width: 74px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      line-height: 1.2;
+      transition: color 140ms ease;
+    }
+
+    .shortcut-item:hover .shortcut-item__title {
+      color: #ffffff;
+    }
+
+    /* Add Site Tile (Solid Squircle) */
+    .shortcut-tile--add {
+      border: 1px dashed #30363d;
+      background: #161b22;
+      color: var(--text-muted);
+    }
+
+    .shortcut-tile--add:hover {
+      background: #21262d;
+      border-color: #3b82f6;
+      color: #3b82f6;
+    }
+
+    .shortcut-tile--add svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .monogram-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: #172554;
+      border: 1px solid #1e40af;
+      color: #60a5fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    /* Modal Dialog for Adding Saved Link (Obsidian Craft) */
+    .shortcut-dialog {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 320px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95);
+      padding: 20px;
+      z-index: 1000;
+      color: #ffffff;
+      outline: none;
+    }
+
+    .shortcut-dialog[open] {
+      animation: shortcutDialogIn 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .shortcut-dialog::backdrop {
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      animation: dialogBackdropFade 200ms ease-out forwards;
+    }
+
+    @keyframes shortcutDialogIn {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -54%) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    @keyframes dialogBackdropFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .dialog-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: #ffffff;
+    }
+
+    .dialog-field {
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .dialog-label {
+      display: block;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    .dialog-input {
+      width: 100%;
+      height: 34px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      padding: 0 10px;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 12.5px;
+      outline: none;
+      transition: border-color 140ms ease;
+    }
+
+    .dialog-input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 1px #3b82f6;
+    }
+
+    .dialog-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .dialog-btn {
+      height: 32px;
+      padding: 0 14px;
+      border-radius: 7px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: background-color 120ms ease, color 120ms ease;
+    }
+
+    .dialog-btn--cancel {
+      background: transparent;
+      color: var(--text-muted);
+    }
+
+    .dialog-btn--cancel:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .dialog-btn--save {
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .dialog-btn--save:hover {
+      background: #1d4ed8;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       PRO PRIVACY & SECURITY TELEMETRY RIBBON
+    ═══════════════════════════════════════════════════════════ */
+    .telemetry-bar {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: nowrap;
+      gap: 16px;
+      padding: 9px 24px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      margin-top: 14px;
+      user-select: none;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      transition: border-color 160ms ease, background-color 160ms ease;
+    }
+
+    .telemetry-bar:hover {
+      background: #1c2128;
+      border-color: #3b82f6;
+    }
+
+    .telemetry-item {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .telemetry-pulse-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .telemetry-pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #3b82f6;
+      box-shadow: none;
+      animation: pulseLive 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulseLive {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.3); opacity: 0.4; }
+    }
+
+    .telemetry-val {
+      font-family: var(--font-sans);
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #ffffff;
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: 'cv02' 1, 'cv03' 1, 'cv04' 1, 'cv11' 1, 'tnum' 1, 'zero' 1;
+      letter-spacing: -0.015em;
+      line-height: 1;
+    }
+
+    .telemetry-val--accent {
+      color: #3b82f6;
+      font-weight: 700;
+    }
+
+    .telemetry-status-text {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #3b82f6;
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+
+    .telemetry-lbl {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      color: #8b949e;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+
+    .telemetry-sep {
+      color: #30363d;
+      font-size: 12px;
+      line-height: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .shortcut-tile, .privacy-status-bar, .search-box {
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       INCOGNITO MODE HERO & INFORMATION CARDS
+    ═══════════════════════════════════════════════════════════ */
+    body.is-incognito-tab {
+      background: #060911;
+    }
+
+    .incognito-hero-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 76px;
+      height: 76px;
+      border-radius: 12px;
+      background: #172554;
+      border: 1px solid #30363d;
+      margin-bottom: 20px;
+    }
+
+    .incognito-info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      width: 100%;
+      max-width: 620px;
+      margin-top: 28px;
+    }
+
+    .incognito-info-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 16px 18px;
+      text-align: left;
+    }
+
+    .incognito-card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .incognito-card-header h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: #f0f6fc;
+      margin: 0;
+      letter-spacing: -0.1px;
+    }
+
+    .incognito-card-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .incognito-card-list li {
+      font-size: 12px;
+      line-height: 1.45;
+      color: #8b949e;
+      position: relative;
+      padding-left: 14px;
+    }
+
+    .incognito-card-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #3b82f6;
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    @media (max-width: 600px) {
+      .incognito-info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       3D PROCEDURAL HELLFIRE BACKGROUND CANVAS (GLSL WebGL)
+    ═══════════════════════════════════════════════════════════ */
+    .hellfire-bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      display: block;
+    }
+
+    .hellfire-ambient-vignette {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      background: radial-gradient(circle at 50% 45%, rgba(9, 13, 22, 0.25) 15%, rgba(9, 13, 22, 0.65) 70%, rgba(9, 13, 22, 0.92) 100%);
+      box-shadow: inset 0 0 140px rgba(9, 13, 22, 0.85);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PROCEDURAL 3D HELLFIRE BACKGROUND CANVAS -->
+  <canvas id="hellfireBgCanvas" class="hellfire-bg-canvas" aria-hidden="true"></canvas>
+  <div class="hellfire-ambient-vignette" aria-hidden="true"></div>
+
+  <!-- AMBIENT TOP LIGHTING -->
+  <div class="top-ambient-glow" aria-hidden="true"></div>
+
+  <!-- HERO MAIN STAGE -->
+  <main class="hero-container">
+
+    <!-- BRAND (Normal) -->
+    <div class="hero-logo" id="heroNormal">
+      <div class="hero-brand-icon" aria-hidden="true">
+        <img src="assets/internal-flame.png" alt="Hell Fire Emblem" class="hero-brand-img">
+      </div>
+      <h1 class="brand-title">Hell <strong class="fire-accent">Fire</strong></h1>
+      <p class="brand-tagline">Private browser for the desktop. Fast, isolated, and quiet.</p>
+    </div>
+
+    <!-- BRAND (Incognito Hero) -->
+    <div class="hero-logo hero-logo--incognito" id="heroIncognito" style="display: none;">
+      <div class="incognito-hero-badge" aria-hidden="true">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 10h16M7 10l1.5-6h7L17 10"/>
+          <circle cx="8.5" cy="15.5" r="3"/>
+          <circle cx="15.5" cy="15.5" r="3"/>
+          <path d="M11.5 15.5h1"/>
+        </svg>
+      </div>
+      <h1 class="brand-title">You've gone <strong class="fire-accent">Incognito</strong></h1>
+      <p class="brand-tagline">Hell Fire will not save your browsing history, cookies, or form entries in this window.</p>
+    </div>
+
+    <!-- OMNI-SEARCH INPUT WITH INLINE ENGINE DROPDOWN & DYNAMIC ACTION BUTTON -->
+    <div class="search-box">
+      <!-- ENGINE SELECTOR DROPDOWN (Left side instead of magnifying glass) -->
+      <div class="engine-dropdown-wrap" id="engineDropdownWrap">
+        <button type="button" class="engine-select-btn" id="engineSelectBtn" aria-haspopup="listbox" aria-expanded="false" title="Change search engine">
+          <span class="engine-select-icon" id="activeEngineIcon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FB542B" aria-hidden="true"><path d="M15.68 0l2.096 2.38s1.84-.512 2.709.358c.868.87 1.584 1.638 1.584 1.638l-.562 1.381.715 2.047s-2.104 7.98-2.35 8.955c-.486 1.919-.818 2.66-2.198 3.633-1.38.972-3.884 2.66-4.293 2.916-.409.256-.92.692-1.38.692-.46 0-.97-.436-1.38-.692a185.796 185.796 0 01-4.293-2.916c-1.38-.973-1.712-1.714-2.197-3.633-.247-.975-2.351-8.955-2.351-8.955l.715-2.047-.562-1.381s.716-.768 1.585-1.638c.868-.87 2.708-.358 2.708-.358L8.321 0h7.36zm-3.679 14.936c-.14 0-1.038.317-1.758.69-.72.373-1.242.637-1.409.742-.167.104-.065.301.087.409.152.107 2.194 1.69 2.393 1.866.198.175.489.464.687.464.198 0 .49-.29.688-.464.198-.175 2.24-1.759 2.392-1.866.152-.108.254-.305.087-.41-.167-.104-.689-.368-1.41-.741-.72-.373-1.617-.69-1.757-.69zm0-11.278s-.409.001-1.022.206-1.278.46-1.584.46c-.307 0-2.581-.434-2.581-.434S4.119 7.152 4.119 7.849c0 .697.339.881.68 1.243l2.02 2.149c.192.203.59.511.356 1.066-.235.555-.58 1.26-.196 1.977.384.716 1.042 1.194 1.464 1.115.421-.08 1.412-.598 1.776-.834.364-.237 1.518-1.19 1.518-1.554 0-.365-1.193-1.02-1.413-1.168-.22-.15-1.226-.725-1.247-.95-.02-.227-.012-.293.284-.851.297-.559.831-1.304.742-1.8-.089-.495-.95-.753-1.565-.986-.615-.232-1.799-.671-1.947-.74-.148-.068-.11-.133.339-.175.448-.043 1.719-.212 2.292-.052.573.16 1.552.403 1.632.532.079.13.149.134.067.579-.081.445-.5 2.581-.541 2.96-.04.38-.12.63.288.724.409.094 1.097.256 1.333.256s.924-.162 1.333-.256c.408-.093.329-.344.288-.723-.04-.38-.46-2.516-.541-2.961-.082-.445-.012-.45.067-.579.08-.129 1.059-.372 1.632-.532.573-.16 1.845.009 2.292.052.449.042.487.107.339.175-.148.069-1.332.508-1.947.74-.615.233-1.476.49-1.565.986-.09.496.445 1.241.742 1.8.297.558.304.624.284.85-.02.226-1.026.802-1.247.95-.22.15-1.413.804-1.413 1.169 0 .364 1.154 1.317 1.518 1.554.364.236 1.355.755 1.776.834.422.079 1.08-.4 1.464-1.115.384-.716.039-1.422-.195-1.977-.235-.555.163-.863.355-1.066l2.02-2.149c.341-.362.68-.546.68-1.243 0-.697-2.695-3.96-2.695-3.96s-2.274.436-2.58.436c-.307 0-.972-.256-1.585-.461-.613-.205-1.022-.206-1.022-.206z"/></svg>
+          </span>
+          <span class="engine-select-name" id="activeEngineName">Brave</span>
+          <svg class="engine-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <!-- ENGINE DROPDOWN LIST -->
+        <div class="engine-menu" id="engineMenu" role="listbox" aria-label="Search engines" hidden>
+          <button type="button" class="engine-menu-item active" data-engine="brave" data-name="Brave" role="option" aria-selected="true">
+            <div class="engine-menu-item__left">
+              <span class="engine-menu-item__icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#FB542B" aria-hidden="true"><path d="M15.68 0l2.096 2.38s1.84-.512 2.709.358c.868.87 1.584 1.638 1.584 1.638l-.562 1.381.715 2.047s-2.104 7.98-2.35 8.955c-.486 1.919-.818 2.66-2.198 3.633-1.38.972-3.884 2.66-4.293 2.916-.409.256-.92.692-1.38.692-.46 0-.97-.436-1.38-.692a185.796 185.796 0 01-4.293-2.916c-1.38-.973-1.712-1.714-2.197-3.633-.247-.975-2.351-8.955-2.351-8.955l.715-2.047-.562-1.381s.716-.768 1.585-1.638c.868-.87 2.708-.358 2.708-.358L8.321 0h7.36zm-3.679 14.936c-.14 0-1.038.317-1.758.69-.72.373-1.242.637-1.409.742-.167.104-.065.301.087.409.152.107 2.194 1.69 2.393 1.866.198.175.489.464.687.464.198 0 .49-.29.688-.464.198-.175 2.24-1.759 2.392-1.866.152-.108.254-.305.087-.41-.167-.104-.689-.368-1.41-.741-.72-.373-1.617-.69-1.757-.69zm0-11.278s-.409.001-1.022.206-1.278.46-1.584.46c-.307 0-2.581-.434-2.581-.434S4.119 7.152 4.119 7.849c0 .697.339.881.68 1.243l2.02 2.149c.192.203.59.511.356 1.066-.235.555-.58 1.26-.196 1.977.384.716 1.042 1.194 1.464 1.115.421-.08 1.412-.598 1.776-.834.364-.237 1.518-1.19 1.518-1.554 0-.365-1.193-1.02-1.413-1.168-.22-.15-1.226-.725-1.247-.95-.02-.227-.012-.293.284-.851.297-.559.831-1.304.742-1.8-.089-.495-.95-.753-1.565-.986-.615-.232-1.799-.671-1.947-.74-.148-.068-.11-.133.339-.175.448-.043 1.719-.212 2.292-.052.573.16 1.552.403 1.632.532.079.13.149.134.067.579-.081.445-.5 2.581-.541 2.96-.04.38-.12.63.288.724.409.094 1.097.256 1.333.256s.924-.162 1.333-.256c.408-.093.329-.344.288-.723-.04-.38-.46-2.516-.541-2.961-.082-.445-.012-.45.067-.579.08-.129 1.059-.372 1.632-.532.573-.16 1.845.009 2.292.052.449.042.487.107.339.175-.148.069-1.332.508-1.947.74-.615.233-1.476.49-1.565.986-.09.496.445 1.241.742 1.8.297.558.304.624.284.85-.02.226-1.026.802-1.247.95-.22.15-1.413.804-1.413 1.169 0 .364 1.154 1.317 1.518 1.554.364.236 1.355.755 1.776.834.422.079 1.08-.4 1.464-1.115.384-.716.039-1.422-.195-1.977-.235-.555.163-.863.355-1.066l2.02-2.149c.341-.362.68-.546.68-1.243 0-.697-2.695-3.96-2.695-3.96s-2.274.436-2.58.436c-.307 0-.972-.256-1.585-.461-.613-.205-1.022-.206-1.022-.206z"/></svg>
+              </span>
+              <span>Brave</span>
+            </div>
+            <svg class="engine-menu-item__check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+
+          <button type="button" class="engine-menu-item" data-engine="google" data-name="Google" role="option" aria-selected="false">
+            <div class="engine-menu-item__left">
+              <span class="engine-menu-item__icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/></svg>
+              </span>
+              <span>Google</span>
+            </div>
+            <svg class="engine-menu-item__check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+
+          <button type="button" class="engine-menu-item" data-engine="bing" data-name="Bing" role="option" aria-selected="false">
+            <div class="engine-menu-item__left">
+              <span class="engine-menu-item__icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#008373" aria-hidden="true"><path d="M20.176 15.406a6.48 6.48 0 01-1.736 4.414c1.338-1.47.803-3.869-1.003-4.635-.862-.305-2.488-.85-3.367-1.158a1.834 1.834 0 01-.932-.818c-.381-.975-1.163-2.968-1.548-3.948-.095-.285-.31-.625-.265-.938.046-.598.724-1.003 1.276-.754l3.682 1.888c.621.292 1.305.692 1.796 1.172a6.486 6.486 0 012.097 4.777zm-1.44 1.888c-.264-1.194-1.135-1.744-2.216-2.028-1.527.902-4.853 2.878-6.952 4.13-1.103.68-2.13 1.35-2.919 1.242a2.866 2.866 0 01-2.77-2.325c-.012-.048-.008-.03-.001.01a6.4 6.4 0 00.947 2.653 6.498 6.498 0 005.486 3.022c1.908.062 3.536-1.153 5.099-2.096.292-.188.804-.496 1.332-.831l1.423-1.51c.553-.577.764-1.426.571-2.267zm-12.04 2.97c.422 0 .822-.1 1.173-.29.355-.215.964-.579 1.7-1.018L9.57 4.502c0-.99-.497-1.864-1.257-2.382-.08-.059-2.91-1.901-2.99-1.956-.605-.432-1.523.045-1.5.797v14.887l.417 2.36a2.488 2.488 0 002.455 2.056z"/></svg>
+              </span>
+              <span>Bing</span>
+            </div>
+            <svg class="engine-menu-item__check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+
+          <button type="button" class="engine-menu-item" data-engine="duckduckgo" data-name="DuckDuckGo" role="option" aria-selected="false">
+            <div class="engine-menu-item__left">
+              <span class="engine-menu-item__icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#DE5833" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm0 .984C18.083.984 23.016 5.916 23.016 12S18.084 23.016 12 23.016.984 18.084.984 12C.984 5.917 5.916.984 12 .984zm0 .938C6.434 1.922 1.922 6.434 1.922 12c0 4.437 2.867 8.205 6.85 9.55-.237-.82-.776-2.753-1.6-6.052-1.184-4.741-2.064-8.606 2.379-9.813.047-.011.064-.064.03-.093-.514-.467-1.382-.548-2.233-.38a.06.06 0 0 1-.07-.058c0-.011 0-.023.011-.035.205-.286.572-.507.822-.64a1.843 1.843 0 0 0-.607-.335c-.059-.022-.059-.12-.006-.144.006-.006.012-.012.024-.012 1.749-.233 3.586.292 4.49 1.448.011.011.023.017.035.023 2.968.635 3.509 4.837 3.328 5.998a9.607 9.607 0 0 0 2.346-.576c.746-.286 1.008-.222 1.101-.053.1.193-.018.513-.28.81-.496.567-1.393 1.01-2.974 1.137-.546.044-1.029.024-1.445.006-.789-.035-1.339-.059-1.633.39-.192.298-.041.998 1.487 1.22 1.09.157 2.078.047 2.798-.034.643-.07 1.073-.118 1.172.069.21.402-.996 1.207-3.066 1.224-.158 0-.315-.006-.467-.011-1.283-.065-2.227-.414-2.816-.735a.094.094 0 0 1-.035-.017c-.105-.059-.31.045-.188.267.07.134.444.478 1.004.776-.058.466.087 1.184.338 2l.088-.016c.041-.009.087-.019.134-.025.507-.082.775.012.926.175.717-.536 1.913-1.294 2.03-1.154.583.694.66 2.332.53 2.99-.004.012-.017.024-.04.035-.274.117-1.783-.296-1.783-.511-.059-1.075-.26-1.173-.493-1.225h-.156c.006.006.012.018.018.03l.052.12c.093.257.24 1.063.13 1.26-.112.199-.835.297-1.284.303-.443.006-.543-.158-.637-.408-.07-.204-.103-.675-.103-.95a.857.857 0 0 1 .012-.216c-.134.058-.333.193-.397.281-.017.262-.017.682.123 1.149.07.221-1.518 1.164-1.74.99-.227-.181-.634-1.952-.459-2.67-.187.017-.338.075-.42.191-.367.508.093 2.933.582 3.248.257.169 1.54-.553 2.176-1.095.105.145.305.158.553.158.326-.012.782-.06 1.103-.158.192.45.423.972.613 1.388 4.47-1.032 7.803-5.037 7.803-9.82 0-5.566-4.512-10.078-10.078-10.078zm1.791 5.646c-.42 0-.678.146-.795.332-.023.047.047.094.094.07.14-.075.357-.161.701-.156.328.006.516.09.67.159l.023.01c.041.017.088-.03.059-.065-.134-.18-.332-.35-.752-.35zm-5.078.198a1.24 1.24 0 0 0-.522.082c-.454.169-.67.526-.67.76 0 .051.112.057.141.011.081-.123.21-.31.617-.478.408-.17.73-.146.951-.094.047.012.083-.041.041-.07a.989.989 0 0 0-.558-.211zm5.434 1.423a.651.651 0 0 0-.655.647.652.652 0 0 0 1.307 0 .646.646 0 0 0-.652-.647zm.283.262h.008a.17.17 0 0 1 .17.17c0 .093-.077.17-.17.17a.17.17 0 0 1-.17-.17c0-.09.072-.165.162-.17zm-5.358.076a.752.752 0 0 0-.758.758c0 .42.338.758.758.758s.758-.337.758-.758a.756.756 0 0 0-.758-.758zm.328.303h.01c.112 0 .2.089.2.2 0 .11-.088.197-.2.197a.195.195 0 0 1-.197-.198c0-.107.082-.194.187-.199z"/></svg>
+              </span>
+              <span>DuckDuckGo</span>
+            </div>
+            <svg class="engine-menu-item__check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+
+          <button type="button" class="engine-menu-item" data-engine="startpage" data-name="Startpage" role="option" aria-selected="false">
+            <div class="engine-menu-item__left">
+              <span class="engine-menu-item__icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#6563FF" aria-hidden="true"><path d="m16.885 14.254.04-.06a8.723 8.723 0 0 0 1.851-4.309c-1.334 0-2.648 0-3.982.04a4.901 4.901 0 0 1-4.758 3.696 4.948 4.948 0 0 1-4.56-3.044 89.632 89.632 0 0 0-3.941.514c1.035 3.697 4.46 6.405 8.501 6.405a8.76 8.76 0 0 0 3.743-.83l.06-.02.04.04 5.455 6.603c.378.454.916.711 1.513.711.458 0 .896-.158 1.234-.435.399-.336.657-.79.697-1.304.04-.514-.1-1.009-.438-1.424zM5.118 8.56c.1-2.59 2.27-4.685 4.918-4.685a4.911 4.911 0 0 1 4.898 4.389c1.314.02 2.608.04 3.922.099C18.616 3.717 14.754 0 10.036 0c-4.858 0-8.82 3.934-8.82 8.758v.178a86.7 86.7 0 0 1 3.902-.376z"/></svg>
+              </span>
+              <span>Startpage</span>
+            </div>
+            <svg class="engine-menu-item__check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+
+          <button type="button" class="engine-menu-item" data-engine="wikipedia" data-name="Wikipedia" role="option" aria-selected="false">
+            <div class="engine-menu-item__left">
+              <span class="engine-menu-item__icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M12.09 13.119c-.936 1.932-2.217 4.548-2.853 5.728-.616 1.074-1.127.931-1.532.029-1.406-3.321-4.293-9.144-5.651-12.409-.251-.601-.441-.987-.619-1.139-.181-.15-.554-.24-1.122-.271C.103 5.033 0 4.982 0 4.898v-.455l.052-.045c.924-.005 5.401 0 5.401 0l.051.045v.434c0 .119-.075.176-.225.176l-.564.031c-.485.029-.727.164-.727.436 0 .135.053.33.166.601 1.082 2.646 4.818 10.521 4.818 10.521l.136.046 2.411-4.81-.482-1.067-1.658-3.264s-.318-.654-.428-.872c-.728-1.443-.712-1.518-1.447-1.617-.207-.023-.313-.05-.313-.149v-.468l.06-.045h4.292l.113.037v.451c0 .105-.076.15-.227.15l-.308.047c-.792.061-.661.381-.136 1.422l1.582 3.252 1.758-3.504c.293-.64.233-.801.111-.947-.07-.084-.305-.22-.812-.24l-.201-.021c-.052 0-.098-.015-.145-.051-.045-.031-.067-.076-.067-.129v-.427l.061-.045c1.247-.008 4.043 0 4.043 0l.059.045v.436c0 .121-.059.178-.193.178-.646.03-.782.095-1.023.439-.12.186-.375.589-.646 1.039l-2.301 4.273-.065.135 2.792 5.712.17.048 4.396-10.438c.154-.422.129-.722-.064-.895-.197-.172-.346-.273-.857-.295l-.42-.016c-.061 0-.105-.014-.152-.045-.043-.029-.072-.075-.072-.119v-.436l.059-.045h4.961l.041.045v.437c0 .119-.074.18-.209.18-.648.03-1.127.18-1.443.421-.314.255-.557.616-.736 1.067 0 0-4.043 9.258-5.426 12.339-.525 1.007-1.053.917-1.503-.031-.571-1.171-1.773-3.786-2.646-5.71l.053-.036z"/></svg>
+              </span>
+              <span>Wikipedia</span>
+            </div>
+            <svg class="engine-menu-item__check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- SEARCH INPUT FIELD -->
+      <input type="text" class="search-input" id="searchField" placeholder="Search with Brave or enter address" autofocus autocomplete="off" spellcheck="false">
+
+      <!-- DYNAMIC ACTION BUTTON (Right side: Glass -> Enter) -->
+      <button type="button" class="search-action-btn" id="searchActionBtn" aria-label="Search" title="Search">
+        <!-- MAGNIFYING GLASS (Shown when input is empty) -->
+        <span class="action-icon" id="glassIcon" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </span>
+        <!-- ENTER BUTTON (Shown when user has entered text) -->
+        <span class="action-icon" id="enterIcon" aria-hidden="true" hidden>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 10 4 15 9 20"></polyline>
+            <path d="M20 4v7a4 4 0 0 1-4 4H4"></path>
+          </svg>
+          <span class="enter-text">Enter</span>
+        </span>
+      </button>
+    </div>
+
+    <!-- QUICK-ACCESS SAVED LINKS -->
+    <nav class="shortcuts-row" id="shortcutsRow" aria-label="Saved sites">
+      <!-- Dynamically populated with authentic brand logos -->
+    </nav>
+
+    <!-- INCOGNITO INFORMATION SHIELD PANELS -->
+    <div class="incognito-info-grid" id="incognitoInfoGrid" style="display: none;">
+      <div class="incognito-info-card">
+        <div class="incognito-card-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+          </svg>
+          <h3>Hell Fire won't save:</h3>
+        </div>
+        <ul class="incognito-card-list">
+          <li>Browsing history across open tabs</li>
+          <li>Cookies and persistent site data</li>
+          <li>Information entered into forms</li>
+          <li>Temporary cache files on disk</li>
+        </ul>
+      </div>
+
+      <div class="incognito-info-card">
+        <div class="incognito-card-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <h3>Active Protections:</h3>
+        </div>
+        <ul class="incognito-card-list">
+          <li>Ad & Tracker Shield strictly active</li>
+          <li>Encrypted DNS (DoH) active</li>
+          <li>Strict third-party cookie isolation</li>
+          <li>WebRTC IP leak prevention active</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ACCESSIBLE MODAL DIALOG: ADD SAVED LINK -->
+    <dialog id="addShortcutDialog" class="shortcut-dialog" aria-labelledby="addShortcutTitle">
+      <form id="addShortcutForm" method="dialog">
+        <h2 id="addShortcutTitle" class="dialog-title">Add Saved Link</h2>
+        
+        <div class="dialog-field">
+          <label class="dialog-label" for="shortcutNameInput">Site Name</label>
+          <input type="text" id="shortcutNameInput" class="dialog-input" placeholder="e.g. YouTube, Reddit, Discord" required autocomplete="off">
+        </div>
+
+        <div class="dialog-field">
+          <label class="dialog-label" for="shortcutUrlInput">Web Address (URL)</label>
+          <input type="text" id="shortcutUrlInput" class="dialog-input" placeholder="e.g. https://..." required autocomplete="off">
+        </div>
+
+        <div class="dialog-actions">
+          <button type="button" class="dialog-btn dialog-btn--cancel" id="btnCancelShortcut">Cancel</button>
+          <button type="submit" class="dialog-btn dialog-btn--save" id="btnSaveShortcut">Save Link</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- PRO PRIVACY & SECURITY TELEMETRY RIBBON -->
+    <div class="telemetry-bar" aria-label="Live privacy & protection telemetry">
+      <div class="telemetry-item" title="Surveillance and telemetry requests stopped locally">
+        <div class="telemetry-pulse-wrap">
+          <span class="telemetry-pulse-dot" aria-hidden="true"></span>
+          <span class="telemetry-val" id="telemetryTrackers">0</span>
+        </div>
+        <span class="telemetry-lbl">Trackers Blocked</span>
+      </div>
+      <span class="telemetry-sep" aria-hidden="true">/</span>
+      <div class="telemetry-item" title="Bandwidth conserved by eliminating tracking scripts & analytics payloads">
+        <span class="telemetry-val" id="telemetryBandwidth">0 KB</span>
+        <span class="telemetry-lbl">Bandwidth Saved</span>
+      </div>
+      <span class="telemetry-sep" aria-hidden="true">/</span>
+      <div class="telemetry-item" title="Encrypted DNS-over-HTTPS resolver active with zero ISP inspection">
+        <span class="telemetry-status-text" id="telemetryDns">Cloudflare DoH</span>
+        <span class="telemetry-lbl">Encrypted DNS</span>
+      </div>
+      <span class="telemetry-sep" aria-hidden="true">/</span>
+      <div class="telemetry-item" title="Zero-trust isolation active for sensors, device access, and partition storage">
+        <span class="telemetry-status-text" id="telemetryShield">Strict Isolation</span>
+        <span class="telemetry-lbl">Shield Status</span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- KINETIC CANVAS & INTERACTION SCRIPT -->
+  <script>
+    (function () {
+      const searchField = document.getElementById('searchField');
+      let selectedEngine = 'brave';
+
+      const ENGINE_MAP = {
+        brave: 'https://search.brave.com/search?q=%s',
+        google: 'https://www.google.com/search?q=%s',
+        bing: 'https://www.bing.com/search?q=%s',
+        duckduckgo: 'https://duckduckgo.com/?q=%s',
+        startpage: 'https://www.startpage.com/sp/search?query=%s',
+        wikipedia: 'https://en.wikipedia.org/wiki/Special:Search?search=%s'
+      };
+
+      const BANG_MAP = {
+        '!g': 'https://www.google.com/search?q=%s',
+        '!b': 'https://www.bing.com/search?q=%s',
+        '!br': 'https://search.brave.com/search?q=%s',
+        '!d': 'https://duckduckgo.com/?q=%s',
+        '!sp': 'https://www.startpage.com/sp/search?query=%s',
+        '!w': 'https://en.wikipedia.org/wiki/Special:Search?search=%s',
+        '!yt': 'https://www.youtube.com/results?search_query=%s',
+        '!gh': 'https://github.com/search?q=%s'
+      };
+
+      const ENGINE_ICONS = {
+        brave: '<svg width="16" height="16" viewBox="0 0 24 24" fill="#FB542B" aria-hidden="true"><path d="M15.68 0l2.096 2.38s1.84-.512 2.709.358c.868.87 1.584 1.638 1.584 1.638l-.562 1.381.715 2.047s-2.104 7.98-2.35 8.955c-.486 1.919-.818 2.66-2.198 3.633-1.38.972-3.884 2.66-4.293 2.916-.409.256-.92.692-1.38.692-.46 0-.97-.436-1.38-.692a185.796 185.796 0 01-4.293-2.916c-1.38-.973-1.712-1.714-2.197-3.633-.247-.975-2.351-8.955-2.351-8.955l.715-2.047-.562-1.381s.716-.768 1.585-1.638c.868-.87 2.708-.358 2.708-.358L8.321 0h7.36zm-3.679 14.936c-.14 0-1.038.317-1.758.69-.72.373-1.242.637-1.409.742-.167.104-.065.301.087.409.152.107 2.194 1.69 2.393 1.866.198.175.489.464.687.464.198 0 .49-.29.688-.464.198-.175 2.24-1.759 2.392-1.866.152-.108.254-.305.087-.41-.167-.104-.689-.368-1.41-.741-.72-.373-1.617-.69-1.757-.69zm0-11.278s-.409.001-1.022.206-1.278.46-1.584.46c-.307 0-2.581-.434-2.581-.434S4.119 7.152 4.119 7.849c0 .697.339.881.68 1.243l2.02 2.149c.192.203.59.511.356 1.066-.235.555-.58 1.26-.196 1.977.384.716 1.042 1.194 1.464 1.115.421-.08 1.412-.598 1.776-.834.364-.237 1.518-1.19 1.518-1.554 0-.365-1.193-1.02-1.413-1.168-.22-.15-1.226-.725-1.247-.95-.02-.227-.012-.293.284-.851.297-.559.831-1.304.742-1.8-.089-.495-.95-.753-1.565-.986-.615-.232-1.799-.671-1.947-.74-.148-.068-.11-.133.339-.175.448-.043 1.719-.212 2.292-.052.573.16 1.552.403 1.632.532.079.13.149.134.067.579-.081.445-.5 2.581-.541 2.96-.04.38-.12.63.288.724.409.094 1.097.256 1.333.256s.924-.162 1.333-.256c.408-.093.329-.344.288-.723-.04-.38-.46-2.516-.541-2.961-.082-.445-.012-.45.067-.579.08-.129 1.059-.372 1.632-.532.573-.16 1.845.009 2.292.052.449.042.487.107.339.175-.148.069-1.332.508-1.947.74-.615.233-1.476.49-1.565.986-.09.496.445 1.241.742 1.8.297.558.304.624.284.85-.02.226-1.026.802-1.247.95-.22.15-1.413.804-1.413 1.169 0 .364 1.154 1.317 1.518 1.554.364.236 1.355.755 1.776.834.422.079 1.08-.4 1.464-1.115.384-.716.039-1.422-.195-1.977-.235-.555.163-.863.355-1.066l2.02-2.149c.341-.362.68-.546.68-1.243 0-.697-2.695-3.96-2.695-3.96s-2.274.436-2.58.436c-.307 0-.972-.256-1.585-.461-.613-.205-1.022-.206-1.022-.206z"/></svg>',
+        google: '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/></svg>',
+        bing: '<svg width="16" height="16" viewBox="0 0 24 24" fill="#008373" aria-hidden="true"><path d="M20.176 15.406a6.48 6.48 0 01-1.736 4.414c1.338-1.47.803-3.869-1.003-4.635-.862-.305-2.488-.85-3.367-1.158a1.834 1.834 0 01-.932-.818c-.381-.975-1.163-2.968-1.548-3.948-.095-.285-.31-.625-.265-.938.046-.598.724-1.003 1.276-.754l3.682 1.888c.621.292 1.305.692 1.796 1.172a6.486 6.486 0 012.097 4.777zm-1.44 1.888c-.264-1.194-1.135-1.744-2.216-2.028-1.527.902-4.853 2.878-6.952 4.13-1.103.68-2.13 1.35-2.919 1.242a2.866 2.866 0 01-2.77-2.325c-.012-.048-.008-.03-.001.01a6.4 6.4 0 00.947 2.653 6.498 6.498 0 005.486 3.022c1.908.062 3.536-1.153 5.099-2.096.292-.188.804-.496 1.332-.831l1.423-1.51c.553-.577.764-1.426.571-2.267zm-12.04 2.97c.422 0 .822-.1 1.173-.29.355-.215.964-.579 1.7-1.018L9.57 4.502c0-.99-.497-1.864-1.257-2.382-.08-.059-2.91-1.901-2.99-1.956-.605-.432-1.523.045-1.5.797v14.887l.417 2.36a2.488 2.488 0 002.455 2.056z"/></svg>',
+        duckduckgo: '<svg width="16" height="16" viewBox="0 0 24 24" fill="#DE5833" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm0 .984C18.083.984 23.016 5.916 23.016 12S18.084 23.016 12 23.016.984 18.084.984 12C.984 5.917 5.916.984 12 .984zm0 .938C6.434 1.922 1.922 6.434 1.922 12c0 4.437 2.867 8.205 6.85 9.55-.237-.82-.776-2.753-1.6-6.052-1.184-4.741-2.064-8.606 2.379-9.813.047-.011.064-.064.03-.093-.514-.467-1.382-.548-2.233-.38a.06.06 0 0 1-.07-.058c0-.011 0-.023.011-.035.205-.286.572-.507.822-.64a1.843 1.843 0 0 0-.607-.335c-.059-.022-.059-.12-.006-.144.006-.006.012-.012.024-.012 1.749-.233 3.586.292 4.49 1.448.011.011.023.017.035.023 2.968.635 3.509 4.837 3.328 5.998a9.607 9.607 0 0 0 2.346-.576c.746-.286 1.008-.222 1.101-.053.1.193-.018.513-.28.81-.496.567-1.393 1.01-2.974 1.137-.546.044-1.029.024-1.445.006-.789-.035-1.339-.059-1.633.39-.192.298-.041.998 1.487 1.22 1.09.157 2.078.047 2.798-.034.643-.07 1.073-.118 1.172.069.21.402-.996 1.207-3.066 1.224-.158 0-.315-.006-.467-.011-1.283-.065-2.227-.414-2.816-.735a.094.094 0 0 1-.035-.017c-.105-.059-.31.045-.188.267.07.134.444.478 1.004.776-.058.466.087 1.184.338 2l.088-.016c.041-.009.087-.019.134-.025.507-.082.775.012.926.175.717-.536 1.913-1.294 2.03-1.154.583.694.66 2.332.53 2.99-.004.012-.017.024-.04.035-.274.117-1.783-.296-1.783-.511-.059-1.075-.26-1.173-.493-1.225h-.156c.006.006.012.018.018.03l.052.12c.093.257.24 1.063.13 1.26-.112.199-.835.297-1.284.303-.443.006-.543-.158-.637-.408-.07-.204-.103-.675-.103-.95a.857.857 0 0 1 .012-.216c-.134.058-.333.193-.397.281-.017.262-.017.682.123 1.149.07.221-1.518 1.164-1.74.99-.227-.181-.634-1.952-.459-2.67-.187.017-.338.075-.42.191-.367.508.093 2.933.582 3.248.257.169 1.54-.553 2.176-1.095.105.145.305.158.553.158.326-.012.782-.06 1.103-.158.192.45.423.972.613 1.388 4.47-1.032 7.803-5.037 7.803-9.82 0-5.566-4.512-10.078-10.078-10.078zm1.791 5.646c-.42 0-.678.146-.795.332-.023.047.047.094.094.07.14-.075.357-.161.701-.156.328.006.516.09.67.159l.023.01c.041.017.088-.03.059-.065-.134-.18-.332-.35-.752-.35zm-5.078.198a1.24 1.24 0 0 0-.522.082c-.454.169-.67.526-.67.76 0 .051.112.057.141.011.081-.123.21-.31.617-.478.408-.17.73-.146.951-.094.047.012.083-.041.041-.07a.989.989 0 0 0-.558-.211zm5.434 1.423a.651.651 0 0 0-.655.647.652.652 0 0 0 1.307 0 .646.646 0 0 0-.652-.647zm.283.262h.008a.17.17 0 0 1 .17.17c0 .093-.077.17-.17.17a.17.17 0 0 1-.17-.17c0-.09.072-.165.162-.17zm-5.358.076a.752.752 0 0 0-.758.758c0 .42.338.758.758.758s.758-.337.758-.758a.756.756 0 0 0-.758-.758zm.328.303h.01c.112 0 .2.089.2.2 0 .11-.088.197-.2.197a.195.195 0 0 1-.197-.198c0-.107.082-.194.187-.199z"/></svg>',
+        startpage: '<svg width="16" height="16" viewBox="0 0 24 24" fill="#6563FF" aria-hidden="true"><path d="m16.885 14.254.04-.06a8.723 8.723 0 0 0 1.851-4.309c-1.334 0-2.648 0-3.982.04a4.901 4.901 0 0 1-4.758 3.696 4.948 4.948 0 0 1-4.56-3.044 89.632 89.632 0 0 0-3.941.514c1.035 3.697 4.46 6.405 8.501 6.405a8.76 8.76 0 0 0 3.743-.83l.06-.02.04.04 5.455 6.603c.378.454.916.711 1.513.711.458 0 .896-.158 1.234-.435.399-.336.657-.79.697-1.304.04-.514-.1-1.009-.438-1.424zM5.118 8.56c.1-2.59 2.27-4.685 4.918-4.685a4.911 4.911 0 0 1 4.898 4.389c1.314.02 2.608.04 3.922.099C18.616 3.717 14.754 0 10.036 0c-4.858 0-8.82 3.934-8.82 8.758v.178a86.7 86.7 0 0 1 3.902-.376z"/></svg>',
+        wikipedia: '<svg width="16" height="16" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M12.09 13.119c-.936 1.932-2.217 4.548-2.853 5.728-.616 1.074-1.127.931-1.532.029-1.406-3.321-4.293-9.144-5.651-12.409-.251-.601-.441-.987-.619-1.139-.181-.15-.554-.24-1.122-.271C.103 5.033 0 4.982 0 4.898v-.455l.052-.045c.924-.005 5.401 0 5.401 0l.051.045v.434c0 .119-.075.176-.225.176l-.564.031c-.485.029-.727.164-.727.436 0 .135.053.33.166.601 1.082 2.646 4.818 10.521 4.818 10.521l.136.046 2.411-4.81-.482-1.067-1.658-3.264s-.318-.654-.428-.872c-.728-1.443-.712-1.518-1.447-1.617-.207-.023-.313-.05-.313-.149v-.468l.06-.045h4.292l.113.037v.451c0 .105-.076.15-.227.15l-.308.047c-.792.061-.661.381-.136 1.422l1.582 3.252 1.758-3.504c.293-.64.233-.801.111-.947-.07-.084-.305-.22-.812-.24l-.201-.021c-.052 0-.098-.015-.145-.051-.045-.031-.067-.076-.067-.129v-.427l.061-.045c1.247-.008 4.043 0 4.043 0l.059.045v.436c0 .121-.059.178-.193.178-.646.03-.782.095-1.023.439-.12.186-.375.589-.646 1.039l-2.301 4.273-.065.135 2.792 5.712.17.048 4.396-10.438c.154-.422.129-.722-.064-.895-.197-.172-.346-.273-.857-.295l-.42-.016c-.061 0-.105-.014-.152-.045-.043-.029-.072-.075-.072-.119v-.436l.059-.045h4.961l.041.045v.437c0 .119-.074.18-.209.18-.648.03-1.127.18-1.443.421-.314.255-.557.616-.736 1.067 0 0-4.043 9.258-5.426 12.339-.525 1.007-1.053.917-1.503-.031-.571-1.171-1.773-3.786-2.646-5.71l.053-.036z"/></svg>'
+      };
+
+      const ENGINE_NAMES = {
+        brave: 'Brave',
+        google: 'Google',
+        bing: 'Bing',
+        duckduckgo: 'DuckDuckGo',
+        startpage: 'Startpage',
+        wikipedia: 'Wikipedia'
+      };
+
+      const activeEngineIcon = document.getElementById('activeEngineIcon');
+      const activeEngineName = document.getElementById('activeEngineName');
+      const engineDropdownWrap = document.getElementById('engineDropdownWrap');
+      const engineSelectBtn = document.getElementById('engineSelectBtn');
+      const engineMenu = document.getElementById('engineMenu');
+      const searchActionBtn = document.getElementById('searchActionBtn');
+      const glassIcon = document.getElementById('glassIcon');
+      const enterIcon = document.getElementById('enterIcon');
+
+      let isIncognito = false;
+
+      function selectEngine(eng) {
+        if (!ENGINE_MAP[eng]) return;
+        selectedEngine = eng;
+        const name = ENGINE_NAMES[eng] || eng;
+        if (activeEngineIcon && ENGINE_ICONS[eng]) {
+          activeEngineIcon.innerHTML = ENGINE_ICONS[eng];
+        }
+        if (activeEngineName) {
+          activeEngineName.textContent = name;
+        }
+        if (searchField) {
+          searchField.placeholder = isIncognito ? `Search privately with ${name} or enter address` : `Search with ${name} or enter address`;
+        }
+
+        // Update dropdown menu items
+        document.querySelectorAll('.engine-menu-item').forEach(item => {
+          const isCur = item.getAttribute('data-engine') === eng;
+          item.classList.toggle('active', isCur);
+          item.setAttribute('aria-selected', isCur ? 'true' : 'false');
+        });
+      }
+
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const engineParam = urlParams.get('engine');
+        if (engineParam && ENGINE_MAP[engineParam]) {
+          selectedEngine = engineParam;
+        }
+        isIncognito = urlParams.get('incognito') === 'true';
+        if (isIncognito) {
+          document.body.classList.add('is-incognito-tab');
+          const heroNormal = document.getElementById('heroNormal');
+          const heroIncognito = document.getElementById('heroIncognito');
+          const incognitoInfoGrid = document.getElementById('incognitoInfoGrid');
+          const shortcutsRow = document.getElementById('shortcutsRow');
+          if (heroNormal) heroNormal.style.display = 'none';
+          if (heroIncognito) heroIncognito.style.display = 'flex';
+          if (incognitoInfoGrid) incognitoInfoGrid.style.display = 'grid';
+          if (shortcutsRow) shortcutsRow.style.display = 'none';
+          document.title = 'Hell Fire — Incognito';
+        }
+      } catch (e) {}
+
+      selectEngine(selectedEngine);
+
+      // Toggle Engine Dropdown
+      if (engineSelectBtn && engineMenu && engineDropdownWrap) {
+        engineSelectBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isCurrentlyHidden = engineMenu.hidden;
+          engineMenu.hidden = !isCurrentlyHidden;
+          engineSelectBtn.setAttribute('aria-expanded', isCurrentlyHidden ? 'true' : 'false');
+          engineDropdownWrap.classList.toggle('open', isCurrentlyHidden);
+        });
+
+        document.querySelectorAll('.engine-menu-item').forEach(item => {
+          item.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const eng = item.getAttribute('data-engine');
+            if (eng) selectEngine(eng);
+            engineMenu.hidden = true;
+            engineSelectBtn.setAttribute('aria-expanded', 'false');
+            engineDropdownWrap.classList.remove('open');
+            if (searchField) searchField.focus();
+          });
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!engineDropdownWrap.contains(e.target)) {
+            engineMenu.hidden = true;
+            engineSelectBtn.setAttribute('aria-expanded', 'false');
+            engineDropdownWrap.classList.remove('open');
+          }
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && !engineMenu.hidden) {
+            engineMenu.hidden = true;
+            engineSelectBtn.setAttribute('aria-expanded', 'false');
+            engineDropdownWrap.classList.remove('open');
+            if (searchField) searchField.focus();
+          }
+        });
+      }
+
+      // Update action button state (Glass -> Enter) based on user input
+      function updateActionState() {
+        if (!searchField) return;
+        const query = searchField.value.trim();
+        const hasText = query.length > 0;
+        if (searchActionBtn) {
+          if (hasText) {
+            searchActionBtn.classList.add('has-text');
+            searchActionBtn.title = 'Press Enter or click to search';
+          } else {
+            searchActionBtn.classList.remove('has-text');
+            searchActionBtn.title = 'Search';
+          }
+        }
+        if (glassIcon) glassIcon.hidden = hasText;
+        if (enterIcon) enterIcon.hidden = !hasText;
+      }
+
+      function executeSearch() {
+        if (!searchField) return;
+        const query = searchField.value.trim();
+        if (query) {
+          if (window.recordTelemetryEvent) window.recordTelemetryEvent(1, 14);
+          const parts = query.split(' ');
+          const first = parts[0].toLowerCase();
+          if (BANG_MAP[first] && parts.length > 1) {
+            const q = parts.slice(1).join(' ');
+            window.location.href = BANG_MAP[first].replace('%s', encodeURIComponent(q));
+            return;
+          }
+          if (query.includes('.') && !query.includes(' ')) {
+            window.location.href = query.startsWith('http') ? query : 'https://' + query;
+            return;
+          }
+          const tmpl = ENGINE_MAP[selectedEngine] || ENGINE_MAP.brave;
+          window.location.href = tmpl.replace('%s', encodeURIComponent(query));
+        } else {
+          searchField.focus();
+        }
+      }
+
+      if (searchField) {
+        searchField.addEventListener('input', updateActionState);
+        searchField.addEventListener('change', updateActionState);
+        searchField.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            executeSearch();
+          }
+        });
+        updateActionState();
+      }
+
+      if (searchActionBtn) {
+        searchActionBtn.addEventListener('click', executeSearch);
+      }
+
+      window.applyBang = function (bangPrefix) {
+        if (!searchField) return;
+        searchField.value = bangPrefix + ' ';
+        searchField.focus();
+        updateActionState();
+      };
+
+      // ═══════════════════════════════════════════════════════════
+      // SAVED LINKS & AUTHENTIC LOGOS ENGINE
+      // ═══════════════════════════════════════════════════════════
+      const BRAND_LOGOS = {
+        'github.com': `<svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>`,
+        'duckduckgo.com': `<svg width="20" height="20" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="#DE5833"/><path d="M24 10c-5.5 0-10 4.5-10 10 0 2.2.7 4.2 2 5.8l-1.5 5.2 6.5-2.2c1 .5 2 .7 3 .7 5.5 0 10-4.5 10-10s-4.5-10-10-10z" fill="#FFFFFF"/><ellipse cx="27" cy="18" rx="1.5" ry="2.2" fill="#333333"/><path d="M30 22c3.5 0 7 2 7 3.5s-4 2.5-8 1.5c-2-.5-4-2-4-3.5 0-.8 2-1.5 5-1.5z" fill="#F9A01B"/><path d="M21 28l-4 3c1.5 1 4 1 5-1l-1-2z" fill="#4B9B48"/><path d="M23 29l4 2c-1 1.5-3.5 1.5-5 0l1-2z" fill="#4B9B48"/></svg>`,
+        'proton.me': `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12.5 3.5C7.25 3.5 3 7.75 3 13c0 3.25 1.63 6.13 4.13 7.82V14.5c0-.83.67-1.5 1.5-1.5h3.87c2.48 0 4.5-2.02 4.5-4.5s-2.02-4.5-4.5-4.5h-.5z" fill="#6D4AFF"/><path d="M13.5 13H8.63v7.82C9.8 21.26 11.11 21.5 12.5 21.5c4.97 0 9-4.03 9-9 0-.48-.04-.95-.12-1.41C20.48 11.83 18.23 13 15.5 13h-2z" fill="#9B7EFF"/></svg>`,
+        'news.ycombinator.com': `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#FF6600"/><path d="M7 6l4.5 8.5V20h2v-5.5L18 6h-2.3L12.5 13 9.3 6H7z" fill="#FFFFFF"/></svg>`,
+        'wikipedia.org': `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#1C1B22"/><path d="M3.5 6.5h3.8l2.9 8.6 2.3-6.2-1.4-2.4H13l2.8 7.6 2.5-7.6h2.2l-4 11h-2.5l-2.6-7.1-2.6 7.1H6.3l-2.8-11z" fill="#FFFFFF"/></svg>`,
+        'youtube.com': `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z" fill="#FF0000"/><path d="M9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#FFFFFF"/></svg>`,
+        'reddit.com': `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#FF4500"/><path d="M19.5 12c0-.83-.67-1.5-1.5-1.5-.4 0-.77.16-1.04.42-1.12-.76-2.64-1.25-4.34-1.31l.88-4.14 2.87.61c.04.66.58 1.18 1.25 1.18.69 0 1.25-.56 1.25-1.25s-.56-1.25-1.25-1.25c-.51 0-.95.31-1.14.75l-3.21-.68c-.14-.03-.28.05-.33.19l-1.03 4.85c-1.74.05-3.3.54-4.44 1.32-.27-.27-.65-.44-1.07-.44-.83 0-1.5.67-1.5 1.5 0 .59.34 1.1.84 1.34-.04.22-.06.44-.06.66 0 2.48 2.8 4.5 6.25 4.5s6.25-2.02 6.25-4.5c0-.22-.02-.44-.06-.66.5-.24.84-.75.84-1.34z" fill="#FFFFFF"/><circle cx="9.25" cy="13.25" r="1.25" fill="#FF4500"/><circle cx="14.75" cy="13.25" r="1.25" fill="#FF4500"/><path d="M9.5 16.25c.78.78 3.72.78 4.5 0" stroke="#FF4500" stroke-width="1.2" stroke-linecap="round"/></svg>`,
+        'x.com': `<svg width="16" height="16" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`,
+        'twitter.com': `<svg width="16" height="16" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`,
+        'google.com': `<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/></svg>`,
+        'discord.com': `<svg width="18" height="18" viewBox="0 0 24 24" fill="#5865F2" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>`,
+        'spotify.com': `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#1DB954"/><path d="M16.5 17c-.2 0-.4-.1-.5-.2-2.3-1.4-5.2-1.7-8.6-.9-.4.1-.8-.2-.9-.6s.2-.8.6-.9c3.8-.9 7-.5 9.6 1.1.3.2.4.7.2 1.1-.1.3-.3.4-.4.4zm1.3-2.9c-.2 0-.5-.1-.7-.2-2.6-1.6-6.6-2.1-9.7-1.1-.5.2-1-.1-1.2-.6s.1-1 .6-1.2c3.6-1.1 8-.6 11 1.2.4.3.6.8.3 1.3-.1.4-.4.6-.7.6zm.1-3.1c-.3 0-.6-.1-.8-.2-3.1-1.9-8.3-2-11.3-1.1-.6.2-1.3-.2-1.4-.8s.2-1.3.8-1.4c3.6-1.1 9.3-.9 13 1.3.6.3.7 1.1.4 1.6-.2.4-.4.6-.7.6z" fill="#000000"/></svg>`,
+        'brave.com': `<svg width="18" height="18" viewBox="0 0 24 24" fill="#FB542B" aria-hidden="true"><path d="M12 2L2 6.5v6.2c0 5.4 4.3 10.4 10 11.3 5.7-.9 10-5.9 10-11.3V6.5L12 2zm0 3.3l6.5 2.9v4.5c0 3.8-2.7 7.4-6.5 8.2-3.8-.8-6.5-4.4-6.5-8.2V8.2L12 5.3z"/></svg>`
+      };
+
+      const DEFAULT_SHORTCUTS = [
+        { name: 'GitHub', url: 'https://github.com' },
+        { name: 'DuckDuckGo', url: 'https://duckduckgo.com' },
+        { name: 'Proton', url: 'https://proton.me' },
+        { name: 'Hacker News', url: 'https://news.ycombinator.com' },
+        { name: 'Wikipedia', url: 'https://en.wikipedia.org' },
+        { name: 'YouTube', url: 'https://youtube.com' },
+        { name: 'Reddit', url: 'https://reddit.com' },
+        { name: 'X', url: 'https://x.com' }
+      ];
+
+      const STORAGE_KEY = 'hellfire_saved_links';
+
+      function getSavedLinks() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('privatefox_saved_links');
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          }
+        } catch (e) {}
+        return DEFAULT_SHORTCUTS;
+      }
+
+      function saveLinks(links) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(links));
+        } catch (e) {}
+      }
+
+      function getLogoForUrl(rawUrl) {
+        try {
+          let hostname = new URL(rawUrl.startsWith('http') ? rawUrl : 'https://' + rawUrl).hostname.toLowerCase();
+          hostname = hostname.replace(/^www\./, '');
+          for (const [domain, svg] of Object.entries(BRAND_LOGOS)) {
+            if (hostname === domain || hostname.endsWith('.' + domain)) {
+              return svg;
+            }
+          }
+          const initial = hostname.replace(/[^a-zA-Z0-9]/g, '').charAt(0).toUpperCase();
+          if (initial) {
+            return `<div class="monogram-badge">${initial}</div>`;
+          }
+          return `<div class="monogram-badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>`;
+        } catch (e) {
+          return `<div class="monogram-badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>`;
+        }
+      }
+
+      const shortcutsRow = document.getElementById('shortcutsRow');
+      const addShortcutDialog = document.getElementById('addShortcutDialog');
+      const addShortcutForm = document.getElementById('addShortcutForm');
+      const shortcutNameInput = document.getElementById('shortcutNameInput');
+      const shortcutUrlInput = document.getElementById('shortcutUrlInput');
+      const btnCancelShortcut = document.getElementById('btnCancelShortcut');
+
+      function renderShortcuts() {
+        if (!shortcutsRow) return;
+        const links = getSavedLinks();
+        shortcutsRow.innerHTML = '';
+
+        links.forEach((link, idx) => {
+          const item = document.createElement('div');
+          item.className = 'shortcut-item';
+
+          const tile = document.createElement('a');
+          tile.className = 'shortcut-tile';
+          tile.href = link.url;
+          tile.target = '_self';
+          tile.title = `${link.name} (${link.url})`;
+
+          const logoSpan = document.createElement('span');
+          logoSpan.className = 'shortcut-tile__logo';
+          logoSpan.innerHTML = getLogoForUrl(link.url);
+
+          const delBtn = document.createElement('button');
+          delBtn.className = 'shortcut-tile__delete';
+          delBtn.type = 'button';
+          delBtn.title = 'Remove saved link';
+          delBtn.innerHTML = `<svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1.5 1.5L8.5 8.5M8.5 1.5L1.5 8.5"/></svg>`;
+          delBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            removeShortcut(idx);
+          });
+
+          tile.appendChild(logoSpan);
+          tile.appendChild(delBtn);
+
+          const titleSpan = document.createElement('span');
+          titleSpan.className = 'shortcut-item__title';
+          titleSpan.textContent = link.name;
+
+          item.appendChild(tile);
+          item.appendChild(titleSpan);
+          shortcutsRow.appendChild(item);
+        });
+
+        // Add Shortcut Tile Button
+        const addItem = document.createElement('div');
+        addItem.className = 'shortcut-item';
+
+        const addBtn = document.createElement('button');
+        addBtn.type = 'button';
+        addBtn.className = 'shortcut-tile shortcut-tile--add';
+        addBtn.title = 'Add a saved link';
+        addBtn.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        `;
+        addBtn.addEventListener('click', () => {
+          if (addShortcutDialog) {
+            shortcutNameInput.value = '';
+            shortcutUrlInput.value = '';
+            addShortcutDialog.showModal();
+            shortcutNameInput.focus();
+          }
+        });
+
+        const addTitle = document.createElement('span');
+        addTitle.className = 'shortcut-item__title';
+        addTitle.textContent = 'Add site';
+
+        addItem.appendChild(addBtn);
+        addItem.appendChild(addTitle);
+        shortcutsRow.appendChild(addItem);
+      }
+
+      function removeShortcut(index) {
+        let links = getSavedLinks();
+        links.splice(index, 1);
+        saveLinks(links);
+        renderShortcuts();
+      }
+
+      if (btnCancelShortcut && addShortcutDialog) {
+        btnCancelShortcut.addEventListener('click', () => {
+          addShortcutDialog.close();
+        });
+      }
+
+      if (addShortcutDialog) {
+        addShortcutDialog.addEventListener('click', (e) => {
+          const rect = addShortcutDialog.getBoundingClientRect();
+          const isInDialog = (
+            rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+            rect.left <= e.clientX && e.clientX <= rect.left + rect.width
+          );
+          if (!isInDialog) {
+            addShortcutDialog.close();
+          }
+        });
+      }
+
+      if (addShortcutForm) {
+        addShortcutForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = shortcutNameInput.value.trim();
+          let urlVal = shortcutUrlInput.value.trim();
+          if (!name || !urlVal) return;
+          if (!urlVal.startsWith('http://') && !urlVal.startsWith('https://')) {
+            urlVal = 'https://' + urlVal;
+          }
+          const links = getSavedLinks();
+          links.push({ name, url: urlVal });
+          saveLinks(links);
+          if (addShortcutDialog) addShortcutDialog.close();
+          renderShortcuts();
+        });
+      }
+
+      renderShortcuts();
+
+      // ═══════════════════════════════════════════════════════════
+      // PRO TELEMETRY LIVE INSTRUMENTATION ENGINE
+      // ═══════════════════════════════════════════════════════════
+      const TELEMETRY_KEY = 'hellfire_real_telemetry';
+      function initTelemetry() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlBlocked = parseInt(urlParams.get('blocked') || '0', 10);
+        const urlDoh = urlParams.get('doh') || '';
+
+        let stats = {
+          trackers: 0,
+          savedBytes: 0
+        };
+        try {
+          const stored = localStorage.getItem(TELEMETRY_KEY);
+          if (stored) {
+            stats = { ...stats, ...JSON.parse(stored) };
+          }
+        } catch (e) {}
+
+        // Sync with real blocked pool passed from browser engine
+        if (urlBlocked > stats.trackers) {
+          stats.trackers = urlBlocked;
+          stats.savedBytes = urlBlocked * 32 * 1024;
+          try { localStorage.setItem(TELEMETRY_KEY, JSON.stringify(stats)); } catch (e) {}
+        }
+
+        const trackersEl = document.getElementById('telemetryTrackers');
+        const bandwidthEl = document.getElementById('telemetryBandwidth');
+        const dnsEl = document.getElementById('telemetryDns');
+
+        if (dnsEl && urlDoh) {
+          const dohMap = {
+            cloudflare: 'Cloudflare DoH',
+            quad9: 'Quad9 DoH',
+            mullvad: 'Mullvad DoH'
+          };
+          dnsEl.textContent = dohMap[urlDoh.toLowerCase()] || `${urlDoh.toUpperCase()} DoH`;
+        }
+
+        function updateDisplay() {
+          if (trackersEl) trackersEl.textContent = Number(stats.trackers).toLocaleString();
+          if (bandwidthEl) {
+            if (stats.savedBytes === 0) {
+              bandwidthEl.textContent = '0 KB';
+            } else if (stats.savedBytes < 1024 * 1024) {
+              const kb = Math.round(stats.savedBytes / 1024);
+              bandwidthEl.textContent = `${kb} KB`;
+            } else {
+              const mb = (stats.savedBytes / (1024 * 1024)).toFixed(1);
+              bandwidthEl.textContent = `${mb} MB`;
+            }
+          }
+        }
+
+        updateDisplay();
+
+        // Live hook updated in real-time when ads/trackers are intercepted
+        window.__updateTelemetry = function (count, dohProvider) {
+          const validCount = Number(count) || 0;
+          const diff = Math.max(0, validCount - stats.trackers);
+          stats.trackers = validCount;
+          stats.savedBytes += diff * 32 * 1024;
+          try {
+            localStorage.setItem(TELEMETRY_KEY, JSON.stringify(stats));
+          } catch (e) {}
+          if (dohProvider && dnsEl) {
+            const dohMap = {
+              cloudflare: 'Cloudflare DoH',
+              quad9: 'Quad9 DoH',
+              mullvad: 'Mullvad DoH'
+            };
+            dnsEl.textContent = dohMap[dohProvider.toLowerCase()] || `${dohProvider} DoH`;
+          }
+          updateDisplay();
+        };
+
+        window.recordTelemetryEvent = function (extraTrackers = 1, extraKb = 32) {
+          stats.trackers += extraTrackers;
+          stats.savedBytes += extraKb * 1024;
+          try {
+            localStorage.setItem(TELEMETRY_KEY, JSON.stringify(stats));
+          } catch (e) {}
+          updateDisplay();
+        };
+      }
+      initTelemetry();
+    })();
+
+    // ═══════════════════════════════════════════════════════════
+    // PROCEDURAL 3D HELLFIRE GLSL WEBGL BACKGROUND ENGINE
+    // ═══════════════════════════════════════════════════════════
+    (function initHellfireBackground() {
+      const canvas = document.getElementById('hellfireBgCanvas');
+      if (!canvas) return;
+
+      const gl = canvas.getContext('webgl', {
+        alpha: false,
+        depth: false,
+        stencil: false,
+        antialias: false,
+        powerPreference: 'low-power',
+        preserveDrawingBuffer: false
+      }) || canvas.getContext('experimental-webgl');
+
+      if (!gl) return;
+
+      function syncSize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        const w = Math.max(320, Math.floor(window.innerWidth * dpr));
+        const h = Math.max(240, Math.floor(window.innerHeight * dpr));
+        if (canvas.width !== w || canvas.height !== h) {
+          canvas.width = w;
+          canvas.height = h;
+        }
+      }
+      window.addEventListener('resize', syncSize, { passive: true });
+      syncSize();
+
+      const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+
+      const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+
+vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
+
+float snoise(vec2 v) {
+    const vec4 C = vec4(0.211324865405187,
+                        0.366025403784439,
+                        -0.577350269189626,
+                        0.024390243902439);
+    vec2 i  = floor(v + dot(v, C.yy));
+    vec2 x0 = v -   i + dot(i, C.xx);
+    vec2 i1;
+    i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+    vec4 x12 = x0.xyxy + C.xxzz;
+    x12.xy -= i1;
+    i = mod289(i);
+    vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0))
+        + i.x + vec3(0.0, i1.x, 1.0));
+    vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+    m = m*m;
+    m = m*m;
+    vec3 x = 2.0 * fract(p * C.www) - 1.0;
+    vec3 h = abs(x) - 0.5;
+    vec3 ox = floor(x + 0.5);
+    vec3 a0 = x - ox;
+    m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
+    vec3 g;
+    g.x  = a0.x  * x0.x  + h.x  * x0.y;
+    g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+    return 130.0 * dot(m, g);
+}
+
+float fbm(vec2 uv) {
+    float total = 0.0;
+    float amp = 0.5;
+    float freq = 1.0;
+    for (int i = 0; i < 5; i++) {
+        total += amp * snoise(uv * freq);
+        freq *= 2.15;
+        amp *= 0.48;
+    }
+    return total;
+}
+
+void main() {
+    vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+    vec2 p = (gl_FragCoord.xy * 2.0 - u_resolution.xy) / min(u_resolution.x, u_resolution.y);
+    vec2 mouseNorm = (u_mouse * 2.0 - u_resolution.xy) / min(u_resolution.x, u_resolution.y);
+    float mouseDist = length(p - mouseNorm);
+    float mouseInfluence = smoothstep(0.7, 0.0, mouseDist);
+    
+    float t = u_time * 0.8;
+    
+    vec2 flowUV = uv * vec2(2.5, 1.2);
+    flowUV.y -= t * 0.95;
+    flowUV.x += sin(flowUV.y * 3.0 + t) * 0.15;
+    
+    flowUV += (p - mouseNorm) * mouseInfluence * 0.35;
+    
+    float q = fbm(flowUV + vec2(0.0, -t * 0.4));
+    float r = fbm(flowUV + 2.5 * q + vec2(1.7, 9.2) + 0.15 * t);
+    float fireNoise = fbm(flowUV + 3.0 * r);
+    
+    float bottomRamp = 1.0 - uv.y;
+    bottomRamp = pow(bottomRamp, 1.35) * 1.6;
+    
+    float sideRamp = pow(abs(uv.x - 0.5) * 2.0, 2.2) * 1.1;
+    float borderMask = clamp(bottomRamp + sideRamp * (1.2 - uv.y * 0.6), 0.0, 2.5);
+    
+    float flame = (fireNoise * 0.5 + 0.5) * borderMask;
+    flame += smoothstep(0.9, 0.1, uv.y) * 0.35;
+    flame += mouseInfluence * 0.45;
+    
+    vec3 obsidian = vec3(0.035, 0.051, 0.086);     // #090d16
+    vec3 deepBlue = vec3(0.02, 0.15, 0.45);        // Deep mystic abyss
+    vec3 sapphire = vec3(0.08, 0.42, 0.98);        // Electric sapphire
+    vec3 cerulean = vec3(0.18, 0.76, 1.0);         // Radiant cyan flame
+    vec3 whiteHot = vec3(0.85, 0.96, 1.0);         // White-hot plasma core
+    vec3 purpleHaze = vec3(0.35, 0.08, 0.85);      // Violet periphery
+    
+    vec3 col = obsidian;
+    col = mix(col, deepBlue, smoothstep(0.15, 0.55, flame));
+    col = mix(col, purpleHaze, smoothstep(0.35, 0.75, flame) * 0.6);
+    col = mix(col, sapphire, smoothstep(0.45, 0.9, flame));
+    col = mix(col, cerulean, smoothstep(0.75, 1.3, flame));
+    col = mix(col, whiteHot, smoothstep(1.15, 1.85, flame));
+    
+    // Volumetric rising spark dots
+    vec2 sparkUV = uv * vec2(15.0, 8.0);
+    sparkUV.y -= t * 3.0;
+    float sparkNoise = snoise(sparkUV);
+    float spark = pow(clamp(sparkNoise, 0.0, 1.0), 12.0) * smoothstep(0.8, 0.0, uv.y) * 3.5;
+    col += vec3(0.4, 0.85, 1.0) * spark;
+    
+    // Vignette
+    float centerVignette = smoothstep(1.2, 0.2, length((uv - 0.5) * vec2(1.2, 1.0)));
+    col += cerulean * 0.04 * centerVignette;
+    
+    gl_FragColor = vec4(col, 1.0);
+}`;
+
+      function compileShader(type, src) {
+        const s = gl.createShader(type);
+        gl.shaderSource(s, src);
+        gl.compileShader(s);
+        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+          console.error(gl.getShaderInfoLog(s));
+          gl.deleteShader(s);
+          return null;
+        }
+        return s;
+      }
+
+      const vertexShader = compileShader(gl.VERTEX_SHADER, vs);
+      const fragmentShader = compileShader(gl.FRAGMENT_SHADER, fs);
+      if (!vertexShader || !fragmentShader) return;
+
+      const prog = gl.createProgram();
+      gl.attachShader(prog, vertexShader);
+      gl.attachShader(prog, fragmentShader);
+      gl.linkProgram(prog);
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+        console.error(gl.getProgramInfoLog(prog));
+        return;
+      }
+      gl.useProgram(prog);
+
+      const buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+
+      const pos = gl.getAttribLocation(prog, 'a_position');
+      gl.enableVertexAttribArray(pos);
+      gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+
+      const uTime = gl.getUniformLocation(prog, 'u_time');
+      const uRes = gl.getUniformLocation(prog, 'u_resolution');
+      const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+      let currentMouse = { x: canvas.width * 0.5, y: canvas.height * 0.5 };
+      let targetMouse = { x: canvas.width * 0.5, y: canvas.height * 0.5 };
+
+      window.addEventListener('mousemove', (event) => {
+        const rect = canvas.getBoundingClientRect();
+        if (rect.width && rect.height) {
+          const nx = (event.clientX - rect.left) / rect.width;
+          const ny = 1.0 - ((event.clientY - rect.top) / rect.height);
+          targetMouse.x = nx * canvas.width;
+          targetMouse.y = ny * canvas.height;
+        }
+      }, { passive: true });
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const flameSpeedScale = 0.6; // Calibrated flame animation velocity to 0.6x for a silky, majestic burn
+      let animFrameId = null;
+      let isDocumentVisible = !document.hidden;
+      let isViewVisible = true;
+      let lastTime = null;
+      let accumulatedTime = 0;
+
+      function isEffectivelyVisible() {
+        return isDocumentVisible && isViewVisible;
+      }
+
+      function updateAnimationState() {
+        if (isEffectivelyVisible()) {
+          startAnimation();
+        } else {
+          stopAnimation();
+        }
+      }
+
+      function render(currentTime) {
+        if (!isEffectivelyVisible()) {
+          stopAnimation();
+          return;
+        }
+
+        if (lastTime === null) {
+          lastTime = currentTime;
+        }
+        const delta = Math.min((currentTime - lastTime) * 0.001, 0.1);
+        lastTime = currentTime;
+        accumulatedTime += delta;
+
+        gl.viewport(0, 0, canvas.width, canvas.height);
+        
+        currentMouse.x += (targetMouse.x - currentMouse.x) * 0.08;
+        currentMouse.y += (targetMouse.y - currentMouse.y) * 0.08;
+
+        // Calibrated flame animation velocity to 0.6x for a silky, majestic burn
+        const timeVal = prefersReduced ? (accumulatedTime * 0.05 * flameSpeedScale) : (accumulatedTime * 0.8 * flameSpeedScale);
+
+        if (uTime) gl.uniform1f(uTime, timeVal);
+        if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+        if (uMouse) gl.uniform2f(uMouse, currentMouse.x, currentMouse.y);
+
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+        if (!prefersReduced) {
+          animFrameId = requestAnimationFrame(render);
+        }
+      }
+
+      function startAnimation() {
+        if (!animFrameId && isEffectivelyVisible()) {
+          lastTime = null; // Clean delta calculation on resumption
+          animFrameId = requestAnimationFrame(render);
+        }
+      }
+
+      function stopAnimation() {
+        if (animFrameId) {
+          cancelAnimationFrame(animFrameId);
+          animFrameId = null;
+          lastTime = null;
+        }
+      }
+
+      // 1. Native Document Visibility API (fires when tab is minimized or backgrounded by Chromium)
+      document.addEventListener('visibilitychange', () => {
+        isDocumentVisible = !document.hidden;
+        updateAnimationState();
+      });
+
+      // 2. Custom View Visibility (fires on Tab Switch & Window Minimize/Restore from main.js)
+      window.addEventListener('hellfire:view-visibility', (event) => {
+        if (event && event.detail) {
+          isViewVisible = Boolean(event.detail.visible);
+          if (event.detail.visible) {
+            isDocumentVisible = true;
+          }
+          updateAnimationState();
+        }
+      });
+
+      // 3. Page Lifecycle API
+      window.addEventListener('pagehide', () => {
+        isViewVisible = false;
+        stopAnimation();
+      });
+
+      window.addEventListener('pageshow', () => {
+        isViewVisible = true;
+        isDocumentVisible = true;
+        updateAnimationState();
+      });
+
+      // Expose telemetry inspection hook for diagnostic verification
+      window.__hellfireBg = {
+        isRunning: () => Boolean(animFrameId),
+        isEffectivelyVisible: () => isEffectivelyVisible(),
+        stop: stopAnimation,
+        start: startAnimation,
+        getAccumulatedTime: () => accumulatedTime,
+        getSpeedScale: () => flameSpeedScale,
+        setForceVisible: (val) => {
+          isDocumentVisible = Boolean(val);
+          isViewVisible = Boolean(val);
+          updateAnimationState();
+        }
+      };
+
+      // Initial ignition
+      updateAnimationState();
+    })();
+  </script>
+</body>
+</html>

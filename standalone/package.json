@@ -1,0 +1,69 @@
+{
+  "name": "hellfire-browser",
+  "productName": "Hell Fire",
+  "version": "1.0.0",
+  "description": "Desktop web browser built with Electron and Chromium, featuring custom dark chrome, WebGL flame new tab, tracker blocking, and dual-pane split view.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "electron tests/run_all_tests.js",
+    "test:smoke": "electron tests/suite10_real_app_launch_and_entrypoint_smoke.js",
+    "pack": "electron-builder --win --dir",
+    "dist": "electron-builder --win"
+  },
+  "keywords": [
+    "browser",
+    "privacy",
+    "electron",
+    "doh",
+    "adblocker",
+    "webgl",
+    "zen-browser",
+    "split-view"
+  ],
+  "author": "Hell Fire Team",
+  "license": "MIT",
+  "build": {
+    "appId": "com.hellfire.browser",
+    "productName": "Hell Fire",
+    "copyright": "Copyright © 2026 Hell Fire Team",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "package.json",
+      "data/**/*",
+      "ui/**/*",
+      "!**/*.log",
+      "!**/*.bak",
+      "!tests/**/*"
+    ],
+    "win": {
+      "icon": "ui/assets/app.ico",
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "artifactName": "Hell-Fire-Setup-${version}.${ext}",
+      "oneClick": true,
+      "perMachine": false,
+      "allowElevation": true,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "Hell Fire",
+      "runAfterFinish": true
+    },
+    "portable": {
+      "artifactName": "Hell-Fire-${version}-Portable.${ext}"
+    }
+  },
+  "devDependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "electron": "^45.4.1",
+    "electron-builder": "^26.18.0"
+  }
+}

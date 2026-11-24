@@ -1,0 +1,1155 @@
+{
+  "timestamp": "2026-11-24T13:44:19.617Z",
+  "totalTests": 213,
+  "totalPassed": 213,
+  "totalFailed": 0,
+  "totalDurationMs": 12007,
+  "successRate": "100.0%",
+  "suites": [
+    {
+      "name": "Suite 1: Window Architecture & Tab Management",
+      "tests": [
+        {
+          "title": "App icon (app.ico) exists in assets",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Master 1:1 app-icon.png exists in assets",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "BrowserWindow instantiated successfully",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Window frame is frameless (custom chrome)",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Window default dimensions initialized (1280x800)",
+          "status": "PASS",
+          "extra": "Actual: 1282x802"
+        },
+        {
+          "title": "Tab 1 WebContentsView attached to contentView",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Tab switching removes Tab 1 from active contentView",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Tab switching attaches Tab 2 to active contentView",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Window minimize state triggered",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Window restore state triggered",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Window destroyed and closed cleanly",
+          "status": "PASS",
+          "extra": ""
+        }
+      ],
+      "passed": 11,
+      "failed": 0,
+      "durationMs": 40
+    },
+    {
+      "name": "Suite 2: Omnibox & Search Routing",
+      "tests": [
+        {
+          "title": "Normalizes \"github.com\" to https://github.com",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Normalizes \"subdomain.example.org/path\" to https://",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Normalizes \"localhost:3000\" to http://localhost:3000",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Normalizes IP \"192.168.1.1:8080\" to http://192.168.1.1:8080",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Routes search query to Brave Search URL",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Search engine URL encodes spaces",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Google search URL builder works",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "DuckDuckGo search URL builder works",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "StartPage search URL builder works",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Normalizes about:newtab to local newtab.html",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Normalizes about:incognito to incognito newtab.html query",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Omnibox input (#omniboxInput) present in UI",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Navigation buttons (#btnBack, #btnForward, #btnReload) present in UI",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Security lock and Privacy Shield buttons present in UI",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "App menu 3-bar button present in UI",
+          "status": "PASS",
+          "extra": ""
+        }
+      ],
+      "passed": 15,
+      "failed": 0,
+      "durationMs": 872
+    },
+    {
+      "name": "Suite 3: WebGL Hellfire Engine & Idle Lifecycle",
+      "tests": [
+        {
+          "title": "Canvas #hellfireBgCanvas present in DOM",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "WebGL rendering context initialized successfully",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Canvas scaled with devicePixelRatio bounds",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Hellfire background engine hook (window.__hellfireBg) exposed",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Flame animation speed scale calibrated strictly to 0.6x",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Animation loop is actively ticking on page open",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Initial visibility state is effectively visible",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Animation completely halts on window minimize signal (0% GPU/CPU)",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Accumulated time is strictly frozen during pause (no background drift)",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Animation seamlessly resumes on window restore",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Animation advances smoothly from paused time without temporal warp",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Animation halts when user switches away to another tab or website",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Animation resumes burning when returning home",
+          "status": "PASS",
+          "extra": ""
+        }
+      ],
+      "passed": 13,
+      "failed": 0,
+      "durationMs": 2745
+    },
+    {
+      "name": "Suite 4: Password Manager & Autofill Vault",
+      "tests": [
+        {
+          "title": "Password manager modal (#modalPasswords) exists in DOM",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Password search filter input (#passwordsSearch) exists",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Inline \"+ Add Login\" button and form exist",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Credentials form inputs (site, user, secret) exist",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Segmented navigation tabs (Logins vs Addresses) exist",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Login item successfully added to credential store",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Rendered card displays website domain \"github.com\"",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Rendered card displays username \"security_tester\"",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Password initially rendered in masked bullet format",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Password revealed on eye toggle click matches secret",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Password re-masked on subsequent toggle click",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Switching to Addresses tab shows autofill addresses section",
+          "status": "PASS",
+          "extra": ""
+        }
+      ],
+      "passed": 12,
+      "failed": 0,
+      "durationMs": 851
+    },
+    {
+      "name": "Suite 5: Security & Incognito Isolation",
+      "tests": [
+        {
+          "title": "CSP meta tag present in newtab.html",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "CSP restricts connect-src to self (no data exfiltration)",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "CSP restricts default-src to safe boundaries",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Normal window does NOT have is-incognito-tab class",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Normal window hides incognito hero badge",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Normal window shows standard Hell Fire hero badge",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Incognito window receives is-incognito-tab class",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Incognito window displays \"You've gone Incognito\" hero",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Incognito window provides privacy security cards",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Incognito partition is successfully isolated from default storage",
+          "status": "PASS",
+          "extra": ""
+        }
+      ],
+      "passed": 10,
+      "failed": 0,
+      "durationMs": 1696
+    },
+    {
+      "name": "Suite 6: Visual & Aesthetic Design Directives",
+      "tests": [
+        {
+          "title": "Zero emojis in index.html chrome, menus, and buttons",
+          "status": "PASS",
+          "extra": "0 violations"
+        },
+        {
+          "title": "Zero emojis in newtab.html hero, search, and shortcuts",
+          "status": "PASS",
+          "extra": "0 violations"
+        },
+        {
+          "title": "Inter font-face configured in newtab.html",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "JetBrains Mono font-face configured in newtab.html",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "OpenType feature settings cv02, cv03, cv04, cv11, tnum, zero enabled",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Negative tracking (-0.012em letter spacing) configured",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Root background token is obsidian #090d16",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Surface card token is #161b22",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Border token is #30363d",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Accent blue token is #2563eb / #3b82f6",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Official app.ico exists in assets",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Official master app-icon.png exists in assets",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Spring easing curve cubic-bezier(0.16, 1, 0.3, 1) configured",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Fast fraction-of-second transition timings (150ms-240ms) utilized",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Tab border specifications present in browser.css",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Active tab illuminated capsule border styled in browser.css",
+          "status": "PASS",
+          "extra": ""
+        }
+      ],
+      "passed": 16,
+      "failed": 0,
+      "durationMs": 4
+    },
+    {
+      "name": "Suite 7: Enterprise QA, IPC Fuzzing, SRE Memory & Chaos",
+      "tests": [
+        {
+          "title": "main.js contains robust non-string type guard in normalizeUrl",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "normalizeUrl function extracted for fuzzing matrix",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Fuzz: null input safely normalizes without throw",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Fuzz: undefined input safely normalizes without throw",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Fuzz: integer 8080 normalizes safely to search or URL",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Fuzz: boolean true normalizes safely",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Fuzz: empty object {} safely resolves to newtab",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Fuzz: malicious prototype array safely resolves to newtab",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Fuzz: javascript: protocol strictly blocked",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Fuzz: vbscript: protocol strictly blocked",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Fuzz: data: protocol strictly blocked",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Fuzz: unauthorized local file URI blocked",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Fuzz: 10,000-character URL handled without buffer overflow",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js registers will-navigate guard for browser chrome window",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js registers setWindowOpenHandler denial on chrome window",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js defines isAuthorizedChromeSender verification helper",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "vault:save enforces isAuthorizedChromeSender verification",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "vault:get enforces isAuthorizedChromeSender verification",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "settings:save enforces isAuthorizedChromeSender verification",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Chaos: 0-byte vault file created for test",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Chaos: Corrupted cipher payload written to vault",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Vault recovery code contains graceful try-catch fallback to empty array",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "SRE: 20 WebContentsViews spawned concurrently under stress",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "SRE: 20 WebContentsViews closed and dereferenced cleanly",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "SRE: Heap memory stabilized post-disposal (delta: 0.1MB <= 80MB)",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "A11y: Escape closes active modals",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "A11y: Escape closes app menu",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "A11y: Escape closes Shield popover",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "A11y: Escape closes find bar",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "A11y: Escape closes autocomplete dropdown",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "A11y: Ctrl+T (New Tab) registered with preventDefault",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "A11y: Ctrl+W (Close Tab) registered with preventDefault",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "A11y: Ctrl+L (Focus Omnibox) registered with preventDefault",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "A11y: Ctrl+R / F5 (Reload) registered with preventDefault",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Security: Permission request handler blocks camera, microphone, display-capture",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Security: Permission check handler returns false for zero-trust media protection",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Privacy: WebRTC public-interface-only policy active on default session",
+          "status": "PASS",
+          "extra": ""
+        }
+      ],
+      "passed": 37,
+      "failed": 0,
+      "durationMs": 1151
+    },
+    {
+      "name": "Suite 8: Compliance, Network (DoH), Download Sanitization & A11y",
+      "tests": [
+        {
+          "title": "main.js contains path.basename sanitization for incoming download filenames",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js strips directory traversal and illegal filename characters",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js verifies targetPath starts with downloads directory",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Sanitizer: ../../../../Windows/System32/cmd.exe converted to safe basename",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Sanitizer: ..\\..\\..\\malicious.bat converted to safe basename",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Sanitizer: empty or whitespace filename defaults to \"download\"",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js configures secure DNS mode with built-in host resolver",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "DoH providers include Cloudflare secure endpoint",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "DoH providers include Quad9 privacy-respecting endpoint",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "DoH providers include Mullvad secure privacy endpoint",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "clearStorageData includes cookies, localstorage, indexdb, and indexeddb",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "clearStorageData includes serviceworkers cleanup",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "clearStorageData includes cachestorage cleanup",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Preload exposes verified list of IPC invocation channels",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Zero missing IPC handlers between preload.js and main.js",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Omnibox input has role or autocomplete attributes",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Obsidian background (#090d16) and text color tokens configured",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Omnibox has descriptive accessible placeholder and aria-label",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Newtab search input has descriptive accessible placeholder",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Password manager credential inputs have secure password masking",
+          "status": "PASS",
+          "extra": ""
+        }
+      ],
+      "passed": 20,
+      "failed": 0,
+      "durationMs": 3
+    },
+    {
+      "name": "Suite 9: Zen & Helium Innovations (Split-View, Glance, CNAME Uncloaking)",
+      "tests": [
+        {
+          "title": "BLOCKED_URL_PATTERNS includes canonical CNAME target: adobedc.net",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "BLOCKED_URL_PATTERNS includes canonical CNAME target: demdex.net",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "BLOCKED_URL_PATTERNS includes canonical CNAME target: omtrdc.net",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "BLOCKED_URL_PATTERNS includes canonical CNAME target: eulerian.net",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "BLOCKED_URL_PATTERNS includes canonical CNAME target: tagcommander.com",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "BLOCKED_URL_PATTERNS includes canonical CNAME target: at-o.net",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "BLOCKED_URL_PATTERNS includes canonical CNAME target: keywee.co",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "BLOCKED_URL_PATTERNS includes canonical CNAME target: wizaly.com",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "BLOCKED_URL_PATTERNS includes canonical CNAME target: affise.com",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "BLOCKED_URL_PATTERNS includes canonical CNAME target: wt-eu02.net",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "BLOCKED_URL_PATTERNS includes canonical CNAME target: kueezrtb.com",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "BLOCKED_URL_PATTERNS includes canonical CNAME target: sc-static.net",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "BLOCKED_URL_PATTERNS includes canonical CNAME target: snapchat.com/tr",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "BLOCKED_URL_PATTERNS array extracted from main.js",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Cloaked Adobe Experience Cloud tracker (data.adobedc.net) is blocked",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Cloaked Demdex audience tracker (dpm.demdex.net) is blocked",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Cloaked Eulerian tracking endpoint is blocked",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Cloaked TagCommander endpoint is blocked",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Benign first-party content (wikipedia.org) is NOT blocked",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Benign open-source repo (github.com) is NOT blocked",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js updateActiveViewBounds includes 50/50 dual pane split math",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js createBrowserWindow initializes splitTabId: null",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js registers tab:split-toggle IPC handler",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js registers tab:split-close IPC handler",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js registers tab:split-state IPC handler",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js closeTab resets splitTabId when closed tab was in split view",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js tab:context-menu includes Split View option",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "index.html contains #btnSplitView action button",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "index.html contains #menuSplitView app menu entry",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "index.html split view button has aria-label and accessible title",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "index.html contains no forbidden emojis in split view markup",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.css contains .action-btn--split.is-active styling",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.js wires click event to #btnSplitView",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.js wires click event to #menuSplitView",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.js listens for tab:split-state to toggle .is-active badge",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.js binds Ctrl+Alt+S global keyboard shortcut for split view",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js updateActiveViewBounds calculates centered Glance bounds (84% width / 82% height)",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js createBrowserWindow initializes glanceView: null",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js registers glance:open IPC handler",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js registers glance:close IPC handler",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "main.js win.on closed cleans up active glanceView to prevent memory leaks",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "index.html contains #glanceFloatingBar preview banner",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "index.html contains #btnGlanceOpenTab button",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "index.html contains #btnGlanceClose dismiss button",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.css contains .glance-floating-bar with glassmorphism backdrop blur",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.css contains @keyframes glanceSlideDown entrance animation",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.css enforces global [hidden] { display: none !important; } to defeat CSS specificity overrides",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.css enforces explicit .glance-floating-bar[hidden] { display: none !important; }",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "index.html initializes #glanceFloatingBar with inline style=\"display: none;\"",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.js wires #btnGlanceClose click event",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.js wires #btnGlanceOpenTab click event",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.js listens for glance:state to toggle visibility",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "browser.js dismisses glance preview on Escape key",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "preload.js ALLOWED_CHANNELS includes tab:split-state",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "preload.js ALLOWED_CHANNELS includes glance:state",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "preload.js exposes toggleSplitView",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "preload.js exposes closeSplitView",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "preload.js exposes getSplitState",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "preload.js exposes openGlance",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "preload.js exposes closeGlance",
+          "status": "PASS",
+          "extra": ""
+        }
+      ],
+      "passed": 60,
+      "failed": 0,
+      "durationMs": 6
+    },
+    {
+      "name": "Suite 10: Real Entrypoint & E2E App Launch Smoke Test",
+      "tests": [
+        {
+          "title": "Electron executable binary exists in standalone node_modules",
+          "status": "PASS",
+          "extra": "Path: C:\\coading\\Hell fire browser\\standalone\\node_modules\\electron\\dist\\electron.exe"
+        },
+        {
+          "title": "main.js entrypoint file exists in standalone root",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "package.json scripts.start references \"electron .\"",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Real app launch produced ZERO UnhandledPromiseRejection errors",
+          "status": "PASS",
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[79896:1124/191415.241:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child_"
+        },
+        {
+          "title": "Real app launch produced ZERO TypeError exceptions (e.g. setWebRTCIPHandlingPolicy)",
+          "status": "PASS",
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[79896:1124/191415.241:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child_"
+        },
+        {
+          "title": "Real app launch produced ZERO ReferenceError exceptions",
+          "status": "PASS",
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[79896:1124/191415.241:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child_"
+        },
+        {
+          "title": "Real app launch produced ZERO SyntaxError exceptions",
+          "status": "PASS",
+          "extra": "[Vault] Corrupted cipher payload, resetting gracefully\n[79896:1124/191415.241:WARNING:ui\\aura\\window.cc:1509] StackChildLayerRelativeTo called with unmanaged layer(s). child=WebContentsViewAura child_"
+        },
+        {
+          "title": "Real app process remained alive with active window (did not crash or exit on boot)",
+          "status": "PASS",
+          "extra": "Exit code: null"
+        },
+        {
+          "title": "Desktop shortcut exists: Hell Fire.lnk",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Shortcut Hell Fire.lnk target executable exists on disk",
+          "status": "PASS",
+          "extra": "Target: C:\\coading\\Hell fire browser\\standalone\\node_modules\\electron\\dist\\electron.exe"
+        },
+        {
+          "title": "Shortcut Hell Fire.lnk target does NOT point to dead 'private-fox' directory",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Shortcut Hell Fire.lnk working directory exists on disk",
+          "status": "PASS",
+          "extra": "WorkDir: C:\\coading\\Hell fire browser\\standalone"
+        },
+        {
+          "title": "Desktop shortcut exists: Hell Fire Browser.lnk",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Shortcut Hell Fire Browser.lnk target executable exists on disk",
+          "status": "PASS",
+          "extra": "Target: C:\\coading\\Hell fire browser\\standalone\\node_modules\\electron\\dist\\electron.exe"
+        },
+        {
+          "title": "Shortcut Hell Fire Browser.lnk target does NOT point to dead 'private-fox' directory",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Shortcut Hell Fire Browser.lnk working directory exists on disk",
+          "status": "PASS",
+          "extra": "WorkDir: C:\\coading\\Hell fire browser\\standalone"
+        },
+        {
+          "title": "Root \"Launch Hell Fire.bat\" exists",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "Standalone \"Launch Hell Fire.bat\" exists",
+          "status": "PASS",
+          "extra": ""
+        },
+        {
+          "title": "launch.vbs does not contain stale \"private-fox\" path",
+          "status": "PASS",
+          "extra": ""
+        }
+      ],
+      "passed": 19,
+      "failed": 0,
+      "durationMs": 4639
+    }
+  ]
+}

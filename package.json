@@ -1,0 +1,25 @@
+{
+  "name": "hellfire",
+  "version": "1.0.0",
+  "description": "Desktop web browser built with Electron and Chromium, featuring custom dark chrome, WebGL flame new tab, tracker blocking, and dual-pane split view.",
+  "main": "standalone/main.js",
+  "scripts": {
+    "start": "node standalone/node_modules/electron/cli.js standalone/.",
+    "test": "node standalone/node_modules/electron/cli.js standalone/tests/run_all_tests.js",
+    "test:smoke": "node standalone/node_modules/electron/cli.js standalone/tests/suite10_real_app_launch_and_entrypoint_smoke.js",
+    "pack": "npm --prefix standalone run pack",
+    "dist": "npm --prefix standalone run dist"
+  },
+  "keywords": [
+    "browser",
+    "privacy",
+    "electron",
+    "doh",
+    "adblocker",
+    "webgl",
+    "zen-browser",
+    "split-view"
+  ],
+  "author": "Hell Fire Team",
+  "license": "MIT"
+}
