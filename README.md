@@ -5,6 +5,15 @@
 <h1 align="center">Hell Fire Browser</h1>
 
 <p align="center">
+  <a href="https://github.com/asutosh01/hellfire"><img src="https://img.shields.io/badge/version-1.0.0-2563eb.svg?style=flat-square" alt="Version 1.0.0" /></a>
+  <a href="#tests"><img src="https://img.shields.io/badge/tests-213%20passed-22c55e.svg?style=flat-square" alt="Tests 213 Passed" /></a>
+  <img src="https://img.shields.io/badge/platform-Windows%20x64-161b22.svg?style=flat-square&logo=windows&logoColor=white" alt="Platform: Windows x64" />
+  <img src="https://img.shields.io/badge/engine-Electron%20%7C%20Chromium-090d16.svg?style=flat-square&logo=electron&logoColor=38bdf8" alt="Engine: Electron + Chromium" />
+  <img src="https://img.shields.io/badge/privacy-Zero%20Telemetry-3b82f6.svg?style=flat-square" alt="Privacy: Zero Telemetry" />
+  <a href="package.json"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License: MIT" /></a>
+</p>
+
+<p align="center">
   <b>Fast, isolated, and quiet desktop web browser built with Electron and Chromium.</b><br>
   Features hardware-backed credential encryption, network-level tracking defense, procedural WebGL graphics, and dual-pane split view.
 </p>
@@ -35,8 +44,18 @@
 
 ### Windows x64
 
-- **Setup Installer:** [Hell-Fire-Setup-1.0.0.exe](https://drive.google.com/uc?export=download&id=1oVh8r2_AThhZ8SEELWG2xlTDyUGfaI1a) (123 MB)
-- **Portable Edition:** [Hell-Fire-1.0.0-Portable.exe](https://drive.google.com/uc?export=download&id=12FW-lLgSu8V24YXplMVWTT9V8q761luG) (112 MB)
+<p>
+  <a href="https://drive.google.com/uc?export=download&id=1oVh8r2_AThhZ8SEELWG2xlTDyUGfaI1a">
+    <img src="https://img.shields.io/badge/Download-One--Click%20Setup%20(.exe)-2563eb?style=for-the-badge&logo=windows&logoColor=white" alt="Download Windows Installer" />
+  </a>
+  &nbsp;
+  <a href="https://drive.google.com/uc?export=download&id=12FW-lLgSu8V24YXplMVWTT9V8q761luG">
+    <img src="https://img.shields.io/badge/Download-Portable%20Edition%20(.exe)-0284c7?style=for-the-badge&logo=windows&logoColor=white" alt="Download Portable Edition" />
+  </a>
+</p>
+
+- **Setup Installer (123 MB):** One-click self-contained installer. Automatically installs to `%LocalAppData%\Programs\Hell Fire`, creates desktop and Start menu shortcuts, registers in Windows Settings, and launches.
+- **Portable Edition (112 MB):** Standalone `.exe` that runs from any folder or USB drive with zero installation.
 
 The installer puts the browser in `%LocalAppData%\Programs\Hell Fire`, adds Desktop and Start Menu shortcuts, registers the app in Windows Settings, and starts it automatically. It requires no administrator rights or Node.js.
 
