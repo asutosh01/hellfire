@@ -45,7 +45,7 @@ The installer puts the browser in `%LocalAppData%\Programs\Hell Fire`, adds Desk
 Prerequisites: Node.js 18+ and npm 9+ on Windows 10/11 x64.
 
 ```bash
-git clone https://github.com/hellfire-browser/hellfire.git
+git clone https://github.com/asutosh01/hellfire.git
 cd hellfire
 npm install
 npm start
